@@ -1,29 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Drawing.Imaging;
-using System.Text;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 
-namespace BookwormBot
+namespace Bookworm.Scan
 {
-    public partial class BookwormForm : Form
+    class Hooks
     {
-        
-        public int HookCalledNum = 0;
+        public static int HookCalledNum = 0;
         public static IntPtr _hookID = IntPtr.Zero;
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static LowLevelKeyboardProc _proc2 = _proc;
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
-
-
+        
         private static IntPtr SetHook(LowLevelKeyboardProc proc)
         {
             using (Process curProcess = Process.GetCurrentProcess())
@@ -33,12 +26,11 @@ namespace BookwormBot
                     GetModuleHandle(curModule.ModuleName), 0);
             }
         }
-        public static BookwormForm FormInstance;
         public static bool Num6Down = false;
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            FormInstance.HookCalledNum++;
+            HookCalledNum++;
             /*
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
@@ -104,7 +96,7 @@ namespace BookwormBot
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
-      
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook,
             LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
@@ -119,11 +111,6 @@ namespace BookwormBot
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
-
-
-
-
-
     }
     public enum HookOrderType
     {

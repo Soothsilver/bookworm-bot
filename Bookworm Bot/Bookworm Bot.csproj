@@ -51,6 +51,9 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Bookworm.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gma.UserActivityMonitor">
       <HintPath>D:\Downloaded\HOOK\Gma.UserActivityMonitor\bin\Debug\Gma.UserActivityMonitor.dll</HintPath>
@@ -70,9 +73,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autonomous.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Act\Autonomous.cs" />
+    <Compile Include="Act\AutoPhase.cs" />
+    <Compile Include="Act\Positions.cs" />
+    <Compile Include="Act\Hotkeys.cs" />
+    <Compile Include="AnalyzedImage.cs" />
     <Compile Include="BitmapParsing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,24 +87,28 @@
     <Compile Include="BookwormForm.Designer.cs">
       <DependentUpon>BookwormForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hooks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hotkeys.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Bot.cs" />
+    <Compile Include="Deprecated\StuffFromOldVersion.cs" />
+    <Compile Include="GameStyle.cs" />
+    <Compile Include="GarbageCollector.cs" />
     <Compile Include="Injection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IO.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Letter.cs" />
+    <Compile Include="Output\StatusOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recognization.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Recognize\Database.cs" />
+    <Compile Include="Recognize\Sample.cs" />
+    <Compile Include="Recognize\Databases.cs" />
+    <Compile Include="Scan\Hooks.cs" />
+    <Compile Include="Scan\Scanning.cs" />
+    <Compile Include="Scan\ScreenCapture.cs" />
+    <Compile Include="Scan\Screenpart.cs" />
+    <Compile Include="Scan\Snapshot.cs" />
     <Compile Include="TilePositions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,7 +128,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -134,9 +142,6 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Act\" />
-    <Folder Include="Recognize\" />
-    <Folder Include="Scan\" />
     <Folder Include="Scrabble\" />
   </ItemGroup>
   <ItemGroup>

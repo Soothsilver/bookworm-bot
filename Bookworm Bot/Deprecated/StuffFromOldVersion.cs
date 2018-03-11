@@ -1,21 +1,14 @@
-﻿using System;
+﻿using Bookworm.Act;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Drawing.Imaging;
 using System.Text;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
-namespace BookwormBot
+namespace Bookworm.Deprecated
 {
-    public partial class BookwormForm : Form
+    class StuffFromOldVersion
     {
-
+        /*
         public float HP_HEALTH_POTION_LIMIT = 6;
         public int POOR_WORD_POWER_LIMIT = 20;
         public int STRONG_WORD_POWER_LIMIT = 32;
@@ -43,7 +36,7 @@ namespace BookwormBot
         public int PoorWordGivenXTimes = 0;
         public void ExecuteAutonomous()
         {
-           
+
             try
             {
                 if (DateTime.Now > NextPhaseBeginsAtSoonest)
@@ -64,28 +57,28 @@ namespace BookwormBot
                         }
                         LastRecognizedKeyboard = Keyboard;
                         RecognizeLetters(LastRecognizedKeyboard, false, false);
-                            foreach (Letter l in LastRecognizedKeyboard)
+                        foreach (Letter l in LastRecognizedKeyboard)
+                        {
+                            if (l.IsStunned)
                             {
-                                if (l.IsStunned)
+                                if (PurifyPotionIsPossible)
                                 {
-                                    if (PurifyPotionIsPossible)
-                                    {
-                                        LeftClickMiddleOfRectangle(rectPurifyPotion);
-                                        AIPhase = AutoPhase.GoSearchWord;
-                                        NextPhaseBeginsAtSoonest = DateTime.Now.AddSeconds(2);
+                                    LeftClickMiddleOfRectangle(rectPurifyPotion);
+                                    AIPhase = AutoPhase.GoSearchWord;
+                                    NextPhaseBeginsAtSoonest = DateTime.Now.AddSeconds(2);
 
-                                    }
-                                    else
-                                    {
-                                        Rectangle rectGrid = new Rectangle(667, 541, 350, 356);
-                                        LeftClick(rectGrid.X + rectGrid.Width / 2, rectGrid.Y + rectGrid.Height / 2);
-                                        AIPhase = AutoPhase.GoSearchWord;
-                                        NextPhaseBeginsAtSoonest = DateTime.Now.AddSeconds(2);
-                                    }
-                                    return;
                                 }
+                                else
+                                {
+                                    Rectangle rectGrid = new Rectangle(667, 541, 350, 356);
+                                    LeftClick(rectGrid.X + rectGrid.Width / 2, rectGrid.Y + rectGrid.Height / 2);
+                                    AIPhase = AutoPhase.GoSearchWord;
+                                    NextPhaseBeginsAtSoonest = DateTime.Now.AddSeconds(2);
+                                }
+                                return;
                             }
-                        
+                        }
+
                         FormBestWord();
                         IndexOfFirstLetter = -1;
                         AvailableLetters.Clear();
@@ -287,17 +280,6 @@ namespace BookwormBot
         {
             Rectangle rect = TilePositions[index];
             LeftClick(rect.X + 44, rect.Y + 44);
-        }
-    }
-    public enum AutoPhase
-    {
-        GoSearchWord,
-        GoClickFirstLetter,
-        GoClickRestOfWord,
-        GoPressEnter,
-        GoWaitForEnemy,
-        GoClickPowerUp,
-        GoClickHealthPotion,
-        GoScramble
+        }*/
     }
 }

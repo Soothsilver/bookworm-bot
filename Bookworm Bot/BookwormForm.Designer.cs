@@ -1,4 +1,4 @@
-﻿namespace BookwormBot
+﻿namespace Bookworm
 {
     partial class BookwormForm
     {
@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookwormForm));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.picturebox = new System.Windows.Forms.PictureBox();
+            this.evertimer = new System.Windows.Forms.Timer(this.components);
             this.panelTraining = new System.Windows.Forms.Panel();
             this.chPlagued = new System.Windows.Forms.CheckBox();
             this.bRemoveFriend = new System.Windows.Forms.Button();
@@ -83,17 +83,29 @@
             this.panelException = new System.Windows.Forms.Panel();
             this.tbException = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.panelCapture = new System.Windows.Forms.Panel();
-            this.lblCaptureDown = new System.Windows.Forms.Label();
-            this.lblCaptureUp = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblHP = new System.Windows.Forms.Label();
             this.panelRegainingComposure = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblDatabaseStatus = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblRecognizingStatus = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblScanningStatus = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblGameName = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.lblCurrentBonus = new System.Windows.Forms.Label();
-            this.lblNowCapturing = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tbLog = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.listviewDatabase = new System.Windows.Forms.ListView();
+            this.bRefreshDatabaseView = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panelTraining.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureImgData)).BeginInit();
@@ -101,26 +113,31 @@
             this.panelAutomode.SuspendLayout();
             this.panelGridIsDark.SuspendLayout();
             this.panelException.SuspendLayout();
-            this.panelCapture.SuspendLayout();
             this.panelRegainingComposure.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // picturebox
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1312, 741);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.picturebox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturebox.Location = new System.Drawing.Point(12, 3);
+            this.picturebox.Name = "picturebox";
+            this.picturebox.Size = new System.Drawing.Size(725, 750);
+            this.picturebox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picturebox.TabIndex = 1;
+            this.picturebox.TabStop = false;
+            this.picturebox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
-            // timer1
+            // evertimer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.evertimer.Enabled = true;
+            this.evertimer.Interval = 1;
+            this.evertimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // panelTraining
             // 
@@ -154,7 +171,7 @@
             this.panelTraining.Controls.Add(this.bChooseKnownLetter);
             this.panelTraining.Controls.Add(this.lblTotalUnrecognizedLetters);
             this.panelTraining.Controls.Add(this.lblTotalLetters);
-            this.panelTraining.Location = new System.Drawing.Point(672, 25);
+            this.panelTraining.Location = new System.Drawing.Point(18, 22);
             this.panelTraining.Name = "panelTraining";
             this.panelTraining.Size = new System.Drawing.Size(638, 329);
             this.panelTraining.TabIndex = 3;
@@ -520,7 +537,7 @@
             // 
             this.lblPossibilities.AutoSize = true;
             this.lblPossibilities.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPossibilities.Location = new System.Drawing.Point(1083, 533);
+            this.lblPossibilities.Location = new System.Drawing.Point(429, 454);
             this.lblPossibilities.Name = "lblPossibilities";
             this.lblPossibilities.Size = new System.Drawing.Size(51, 20);
             this.lblPossibilities.TabIndex = 6;
@@ -528,7 +545,7 @@
             // 
             // bLoadAndParseDictionary
             // 
-            this.bLoadAndParseDictionary.Location = new System.Drawing.Point(1072, 392);
+            this.bLoadAndParseDictionary.Location = new System.Drawing.Point(404, 391);
             this.bLoadAndParseDictionary.Name = "bLoadAndParseDictionary";
             this.bLoadAndParseDictionary.Size = new System.Drawing.Size(238, 60);
             this.bLoadAndParseDictionary.TabIndex = 7;
@@ -552,7 +569,7 @@
             "english-words.70",
             "english-words.80",
             "english-words.95"});
-            this.cbDictionary.Location = new System.Drawing.Point(1072, 365);
+            this.cbDictionary.Location = new System.Drawing.Point(404, 364);
             this.cbDictionary.Name = "cbDictionary";
             this.cbDictionary.Size = new System.Drawing.Size(238, 21);
             this.cbDictionary.TabIndex = 9;
@@ -562,7 +579,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(679, 365);
+            this.label3.Location = new System.Drawing.Point(19, 362);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(390, 208);
             this.label3.TabIndex = 10;
@@ -571,7 +588,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1069, 696);
+            this.label4.Location = new System.Drawing.Point(424, 572);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 11;
@@ -581,7 +598,7 @@
             // 
             this.lblGridLuminosity.AutoSize = true;
             this.lblGridLuminosity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGridLuminosity.Location = new System.Drawing.Point(1152, 694);
+            this.lblGridLuminosity.Location = new System.Drawing.Point(507, 570);
             this.lblGridLuminosity.Name = "lblGridLuminosity";
             this.lblGridLuminosity.Size = new System.Drawing.Size(45, 16);
             this.lblGridLuminosity.TabIndex = 12;
@@ -593,10 +610,11 @@
             this.panelAutomode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelAutomode.Controls.Add(this.lblPaused);
             this.panelAutomode.Controls.Add(this.label5);
-            this.panelAutomode.Location = new System.Drawing.Point(655, 725);
+            this.panelAutomode.Location = new System.Drawing.Point(607, 766);
             this.panelAutomode.Name = "panelAutomode";
             this.panelAutomode.Size = new System.Drawing.Size(581, 88);
             this.panelAutomode.TabIndex = 13;
+            this.panelAutomode.Visible = false;
             // 
             // lblPaused
             // 
@@ -623,10 +641,11 @@
             this.panelGridIsDark.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panelGridIsDark.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelGridIsDark.Controls.Add(this.label7);
-            this.panelGridIsDark.Location = new System.Drawing.Point(655, 823);
+            this.panelGridIsDark.Location = new System.Drawing.Point(607, 864);
             this.panelGridIsDark.Name = "panelGridIsDark";
             this.panelGridIsDark.Size = new System.Drawing.Size(581, 88);
             this.panelGridIsDark.TabIndex = 14;
+            this.panelGridIsDark.Visible = false;
             // 
             // label7
             // 
@@ -644,7 +663,7 @@
             this.panelException.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelException.Controls.Add(this.tbException);
             this.panelException.Controls.Add(this.label8);
-            this.panelException.Location = new System.Drawing.Point(55, 725);
+            this.panelException.Location = new System.Drawing.Point(12, 766);
             this.panelException.Name = "panelException";
             this.panelException.Size = new System.Drawing.Size(581, 186);
             this.panelException.TabIndex = 14;
@@ -652,158 +671,282 @@
             // 
             // tbException
             // 
-            this.tbException.Location = new System.Drawing.Point(24, 44);
+            this.tbException.Location = new System.Drawing.Point(10, 44);
             this.tbException.Multiline = true;
             this.tbException.Name = "tbException";
             this.tbException.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbException.Size = new System.Drawing.Size(532, 124);
+            this.tbException.Size = new System.Drawing.Size(549, 124);
             this.tbException.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(3, 3);
+            this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(278, 38);
+            this.label8.Size = new System.Drawing.Size(291, 38);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Exception occured";
-            // 
-            // panelCapture
-            // 
-            this.panelCapture.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panelCapture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelCapture.Controls.Add(this.lblCaptureDown);
-            this.panelCapture.Controls.Add(this.lblCaptureUp);
-            this.panelCapture.Location = new System.Drawing.Point(655, 606);
-            this.panelCapture.Name = "panelCapture";
-            this.panelCapture.Size = new System.Drawing.Size(408, 103);
-            this.panelCapture.TabIndex = 15;
-            this.panelCapture.Visible = false;
-            // 
-            // lblCaptureDown
-            // 
-            this.lblCaptureDown.AutoSize = true;
-            this.lblCaptureDown.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCaptureDown.Location = new System.Drawing.Point(10, 45);
-            this.lblCaptureDown.Name = "lblCaptureDown";
-            this.lblCaptureDown.Size = new System.Drawing.Size(112, 25);
-            this.lblCaptureDown.TabIndex = 1;
-            this.lblCaptureDown.Text = "Capturing:";
-            // 
-            // lblCaptureUp
-            // 
-            this.lblCaptureUp.AutoSize = true;
-            this.lblCaptureUp.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCaptureUp.Location = new System.Drawing.Point(8, 12);
-            this.lblCaptureUp.Name = "lblCaptureUp";
-            this.lblCaptureUp.Size = new System.Drawing.Size(112, 25);
-            this.lblCaptureUp.TabIndex = 0;
-            this.lblCaptureUp.Text = "Capturing:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(550, 34);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Life:";
-            // 
-            // lblHP
-            // 
-            this.lblHP.AutoSize = true;
-            this.lblHP.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lblHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHP.Location = new System.Drawing.Point(531, 52);
-            this.lblHP.Name = "lblHP";
-            this.lblHP.Size = new System.Drawing.Size(101, 42);
-            this.lblHP.TabIndex = 17;
-            this.lblHP.Text = "3 HP";
+            this.label8.Text = "Exception occurred";
             // 
             // panelRegainingComposure
             // 
             this.panelRegainingComposure.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panelRegainingComposure.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelRegainingComposure.Controls.Add(this.label6);
             this.panelRegainingComposure.Controls.Add(this.label9);
-            this.panelRegainingComposure.Location = new System.Drawing.Point(55, 533);
+            this.panelRegainingComposure.Location = new System.Drawing.Point(88, 281);
             this.panelRegainingComposure.Name = "panelRegainingComposure";
             this.panelRegainingComposure.Size = new System.Drawing.Size(581, 186);
             this.panelRegainingComposure.TabIndex = 18;
             this.panelRegainingComposure.Visible = false;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.Location = new System.Drawing.Point(56, 115);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(495, 20);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "The bot is confused. It waits for a bit for the game to become stable...";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(136, 74);
+            this.label9.Location = new System.Drawing.Point(128, 53);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(331, 38);
             this.label9.TabIndex = 0;
             this.label9.Text = "Regaining composure.";
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Controls.Add(this.tabPage4);
+            this.tabControl.Controls.Add(this.tabPage5);
+            this.tabControl.Location = new System.Drawing.Point(743, 3);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(645, 728);
+            this.tabControl.TabIndex = 23;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lblDatabaseStatus);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.lblRecognizingStatus);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.lblScanningStatus);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.lblGameName);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(637, 702);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Advanced status";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblDatabaseStatus
+            // 
+            this.lblDatabaseStatus.AutoSize = true;
+            this.lblDatabaseStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDatabaseStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblDatabaseStatus.Location = new System.Drawing.Point(361, 72);
+            this.lblDatabaseStatus.Name = "lblDatabaseStatus";
+            this.lblDatabaseStatus.Size = new System.Drawing.Size(90, 13);
+            this.lblDatabaseStatus.TabIndex = 7;
+            this.lblDatabaseStatus.Text = "Not yet loaded";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(287, 72);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Database:";
+            // 
+            // lblRecognizingStatus
+            // 
+            this.lblRecognizingStatus.AutoSize = true;
+            this.lblRecognizingStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblRecognizingStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblRecognizingStatus.Location = new System.Drawing.Point(92, 72);
+            this.lblRecognizingStatus.Name = "lblRecognizingStatus";
+            this.lblRecognizingStatus.Size = new System.Drawing.Size(23, 13);
+            this.lblRecognizingStatus.TabIndex = 5;
+            this.lblRecognizingStatus.Text = "No";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(17, 72);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(69, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Recognizing:";
+            // 
+            // lblScanningStatus
+            // 
+            this.lblScanningStatus.AutoSize = true;
+            this.lblScanningStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblScanningStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblScanningStatus.Location = new System.Drawing.Point(92, 44);
+            this.lblScanningStatus.Name = "lblScanningStatus";
+            this.lblScanningStatus.Size = new System.Drawing.Size(23, 13);
+            this.lblScanningStatus.TabIndex = 3;
+            this.lblScanningStatus.Text = "No";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(31, 44);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(55, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Scanning:";
+            // 
+            // lblGameName
+            // 
+            this.lblGameName.AutoSize = true;
+            this.lblGameName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblGameName.Location = new System.Drawing.Point(92, 19);
+            this.lblGameName.Name = "lblGameName";
+            this.lblGameName.Size = new System.Drawing.Size(144, 13);
+            this.lblGameName.TabIndex = 1;
+            this.lblGameName.Text = "LetterQuest Remastered";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 802);
+            this.label10.Location = new System.Drawing.Point(48, 19);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(196, 144);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "[Ctrl+Alt+\r\nA] Bonus Animals\r\nS] Bonus Fruits and Vegetables\r\nD] Bonus Bone\r\nF] B" +
-    "onus Color\r\nG] Bonus Metals\r\nH] Bonus Fire\r\nJ] Bonus Big Cats\r\nK] Remove all bon" +
-    "uses";
-            this.label10.Visible = false;
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Game:";
             // 
-            // lblCurrentBonus
+            // tabPage1
             // 
-            this.lblCurrentBonus.AutoSize = true;
-            this.lblCurrentBonus.Location = new System.Drawing.Point(270, 933);
-            this.lblCurrentBonus.Name = "lblCurrentBonus";
-            this.lblCurrentBonus.Size = new System.Drawing.Size(97, 13);
-            this.lblCurrentBonus.TabIndex = 21;
-            this.lblCurrentBonus.Text = "No bonus enabled.";
+            this.tabPage1.Controls.Add(this.panelTraining);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.bLoadAndParseDictionary);
+            this.tabPage1.Controls.Add(this.cbDictionary);
+            this.tabPage1.Controls.Add(this.lblPossibilities);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.lblGridLuminosity);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(637, 702);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Old forms";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // lblNowCapturing
+            // tabPage3
             // 
-            this.lblNowCapturing.AutoSize = true;
-            this.lblNowCapturing.Location = new System.Drawing.Point(512, 17);
-            this.lblNowCapturing.Name = "lblNowCapturing";
-            this.lblNowCapturing.Size = new System.Drawing.Size(115, 13);
-            this.lblNowCapturing.TabIndex = 22;
-            this.lblNowCapturing.Text = "Now capturing heart: 3";
+            this.tabPage3.Controls.Add(this.tbLog);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(637, 702);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Log";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tbLog
+            // 
+            this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLog.Location = new System.Drawing.Point(3, 3);
+            this.tbLog.Multiline = true;
+            this.tbLog.Name = "tbLog";
+            this.tbLog.ReadOnly = true;
+            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbLog.Size = new System.Drawing.Size(631, 696);
+            this.tbLog.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(744, 734);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(256, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Press Ctrl+Left and Ctrl+Right to move between tabs.";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(637, 702);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Hotkeys";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(12, 16);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(584, 16);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "[Ctrl+R] Remember all unknown letters in the grid as \'unknown\'. You will assign l" +
+    "etters to them later.";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.bRefreshDatabaseView);
+            this.tabPage5.Controls.Add(this.listviewDatabase);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(637, 702);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Database Editor";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // listviewDatabase
+            // 
+            this.listviewDatabase.Location = new System.Drawing.Point(3, 35);
+            this.listviewDatabase.Name = "listviewDatabase";
+            this.listviewDatabase.Size = new System.Drawing.Size(625, 287);
+            this.listviewDatabase.TabIndex = 0;
+            this.listviewDatabase.UseCompatibleStateImageBehavior = false;
+            // 
+            // bRefreshDatabaseView
+            // 
+            this.bRefreshDatabaseView.Location = new System.Drawing.Point(3, 6);
+            this.bRefreshDatabaseView.Name = "bRefreshDatabaseView";
+            this.bRefreshDatabaseView.Size = new System.Drawing.Size(149, 23);
+            this.bRefreshDatabaseView.TabIndex = 1;
+            this.bRefreshDatabaseView.Text = "Refresh database listview";
+            this.bRefreshDatabaseView.UseVisualStyleBackColor = true;
             // 
             // BookwormForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 964);
-            this.Controls.Add(this.lblNowCapturing);
-            this.Controls.Add(this.lblCurrentBonus);
-            this.Controls.Add(this.label10);
+            this.ClientSize = new System.Drawing.Size(1392, 964);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.panelRegainingComposure);
-            this.Controls.Add(this.lblHP);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.panelCapture);
             this.Controls.Add(this.panelException);
             this.Controls.Add(this.panelGridIsDark);
             this.Controls.Add(this.panelAutomode);
-            this.Controls.Add(this.lblGridLuminosity);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbDictionary);
-            this.Controls.Add(this.bLoadAndParseDictionary);
-            this.Controls.Add(this.lblPossibilities);
-            this.Controls.Add(this.panelTraining);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picturebox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BookwormForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Bookworm Bot";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebox)).EndInit();
             this.panelTraining.ResumeLayout(false);
             this.panelTraining.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -816,10 +959,18 @@
             this.panelGridIsDark.PerformLayout();
             this.panelException.ResumeLayout(false);
             this.panelException.PerformLayout();
-            this.panelCapture.ResumeLayout(false);
-            this.panelCapture.PerformLayout();
             this.panelRegainingComposure.ResumeLayout(false);
             this.panelRegainingComposure.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,8 +978,8 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox picturebox;
+        private System.Windows.Forms.Timer evertimer;
         private System.Windows.Forms.Panel panelTraining;
         private System.Windows.Forms.Button bLoadLetterDB;
         private System.Windows.Forms.Button bForgetThis;
@@ -869,11 +1020,6 @@
         private System.Windows.Forms.TextBox tbException;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chStunned;
-        private System.Windows.Forms.Panel panelCapture;
-        private System.Windows.Forms.Label lblCaptureDown;
-        private System.Windows.Forms.Label lblCaptureUp;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblHP;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chAmethyst;
         private System.Windows.Forms.CheckBox chDiamond;
@@ -887,9 +1033,26 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button bRemoveFriend;
         private System.Windows.Forms.CheckBox chPlagued;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lblCurrentBonus;
-        private System.Windows.Forms.Label lblNowCapturing;
+        public System.Windows.Forms.Label lblScanningStatus;
+        public System.Windows.Forms.Label lblGameName;
+        private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TabControl tabControl;
+        public System.Windows.Forms.Label lblRecognizingStatus;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        public System.Windows.Forms.Label lblDatabaseStatus;
+        private System.Windows.Forms.TabPage tabPage3;
+        public System.Windows.Forms.TextBox tbLog;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button bRefreshDatabaseView;
+        public System.Windows.Forms.ListView listviewDatabase;
     }
 }
 

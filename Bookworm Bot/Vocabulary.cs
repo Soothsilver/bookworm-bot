@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Bookworm;
 
 namespace BookwormBot
 {
@@ -22,6 +23,7 @@ namespace BookwormBot
 
         public void FormBestWord()
         {
+            /*
             if (LastRecognizedKeyboard != null)
             {
                 CurrentWord = 0;
@@ -37,7 +39,7 @@ namespace BookwormBot
                 }
                 Vocabulary.ScanForTheseLetters(chars);
                 BestWord = Vocabulary.EarliestUnbroken();
-            }
+            }*/
         }
         public void FormNextBestWord()
         {
@@ -46,7 +48,7 @@ namespace BookwormBot
         }
         public Vocabulary Vocabulary;
         public void LoadDictionariesFinalTouches()
-        {
+        {/*
             Vocabulary.SortByPower();
             Vocabulary.ClearToStart();
             LoadRemovalVocabulary();
@@ -59,7 +61,7 @@ namespace BookwormBot
                         Vocabulary.Words.RemoveAt(vi);
                     }
                 }
-            }
+            }*/
         }
         public void LoadBonusWords()
         {

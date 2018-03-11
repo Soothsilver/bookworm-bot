@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace BookwormBot
+namespace Bookworm
 {
     [Serializable]
     public class Letter : AnalyzedImage
@@ -35,14 +35,5 @@ namespace BookwormBot
         public bool IsDiamond;
 
         public int PositionInGrid;
-      //  public int ColorDataWidth;
-     //   public int ColorDataHeight;
-    }
-    [Serializable]
-    public class AnalyzedImage
-    {
-        public Color[,] ColorData;
-        public int ColorDataWidth;
-        public int ColorDataHeight;
     }
 }

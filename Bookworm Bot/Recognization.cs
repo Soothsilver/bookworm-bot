@@ -10,8 +10,9 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Bookworm;
 
-namespace BookwormBot
+namespace Bookworm
 {
     public partial class BookwormForm : Form
     {
@@ -19,15 +20,17 @@ namespace BookwormBot
         public int CONFUSING_LETTERS_CONFIDENCE_THRESHOLD = 2500;
         public void LearnAllUnknowns()
         {
+            /*
             foreach (Letter l in LetterDB)
             {
                 if (Keyboard.Contains(l))
                  l.Known = true;
             }
-            SerializeLetterDB();
+            SerializeLetterDB();*/
         }
         public void RecognizeLetters(List<Letter> checkingwhat, bool totalMistrust, bool addToLetterDB = true)
         {
+            /*
             for (int li = checkingwhat.Count() - 1; li >= 0; li--)
             {
                 Letter l = checkingwhat[li];
@@ -91,7 +94,7 @@ namespace BookwormBot
                 }
             }
             SerializeLetterDB();
-            RefreshTrainingPanel();
+            RefreshTrainingPanel();*/
         }/*
         private int GetSimilarityIndex(Letter l, Letter l2)
         {
