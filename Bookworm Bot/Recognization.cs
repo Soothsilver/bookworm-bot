@@ -110,9 +110,6 @@ namespace Bookworm
         }*/
         private void RecognizeAllUnrecognizedInDB(bool mistrust = true)
         {
-            IEnumerable<Letter> enumera = LetterDB.Where((Letter l) => { return l.Known == false; });
-            List<Letter> lNew = new List<Letter>(enumera);
-            RecognizeLetters(lNew, mistrust);
         }
      
         private int GetSimilarityIndex(AnalyzedImage l, AnalyzedImage l2)

@@ -99,12 +99,20 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.listviewDatabase = new System.Windows.Forms.ListView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bDeleteSingleLetter = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tbSingleLetter = new System.Windows.Forms.TextBox();
+            this.bSaveSingleLetter = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pictureSingleLetter = new System.Windows.Forms.PictureBox();
             this.bRefreshDatabaseView = new System.Windows.Forms.Button();
+            this.listviewDatabase = new System.Windows.Forms.ListView();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panelTraining.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -120,6 +128,10 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).BeginInit();
             this.SuspendLayout();
             // 
             // picturebox
@@ -341,7 +353,6 @@
             this.button2.TabIndex = 21;
             this.button2.Text = "Set all letters to unknown";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.bAllAreUnknown_Click);
             // 
             // button1
             // 
@@ -476,7 +487,6 @@
             this.pictureImgData.Size = new System.Drawing.Size(121, 94);
             this.pictureImgData.TabIndex = 6;
             this.pictureImgData.TabStop = false;
-            this.pictureImgData.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureImgData_Paint);
             // 
             // pictureFullBitmap
             // 
@@ -485,7 +495,6 @@
             this.pictureFullBitmap.Size = new System.Drawing.Size(121, 94);
             this.pictureFullBitmap.TabIndex = 5;
             this.pictureFullBitmap.TabStop = false;
-            this.pictureFullBitmap.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureFullBitmap_Paint);
             // 
             // bFindNextUnrecognizedLetter
             // 
@@ -495,7 +504,6 @@
             this.bFindNextUnrecognizedLetter.TabIndex = 4;
             this.bFindNextUnrecognizedLetter.Text = "Find next unrecognized letter";
             this.bFindNextUnrecognizedLetter.UseVisualStyleBackColor = true;
-            this.bFindNextUnrecognizedLetter.Click += new System.EventHandler(this.bFindNextUnrecognizedLetter_Click);
             // 
             // cbKnownLetters
             // 
@@ -732,6 +740,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(645, 728);
             this.tabControl.TabIndex = 23;
+            this.tabControl.TabIndexChanged += new System.EventHandler(this.tabControl_TabIndexChanged);
             // 
             // tabPage2
             // 
@@ -869,15 +878,6 @@
             this.tbLog.Size = new System.Drawing.Size(631, 696);
             this.tbLog.TabIndex = 0;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(744, 734);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(256, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Press Ctrl+Left and Ctrl+Right to move between tabs.";
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label15);
@@ -895,14 +895,14 @@
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(12, 16);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(584, 16);
+            this.label15.Size = new System.Drawing.Size(598, 32);
             this.label15.TabIndex = 11;
-            this.label15.Text = "[Ctrl+R] Remember all unknown letters in the grid as \'unknown\'. You will assign l" +
-    "etters to them later.";
+            this.label15.Text = resources.GetString("label15.Text");
             this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox2);
             this.tabPage5.Controls.Add(this.bRefreshDatabaseView);
             this.tabPage5.Controls.Add(this.listviewDatabase);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -913,13 +913,84 @@
             this.tabPage5.Text = "Database Editor";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // listviewDatabase
+            // groupBox2
             // 
-            this.listviewDatabase.Location = new System.Drawing.Point(3, 35);
-            this.listviewDatabase.Name = "listviewDatabase";
-            this.listviewDatabase.Size = new System.Drawing.Size(625, 287);
-            this.listviewDatabase.TabIndex = 0;
-            this.listviewDatabase.UseCompatibleStateImageBehavior = false;
+            this.groupBox2.Controls.Add(this.groupBox4);
+            this.groupBox2.Controls.Add(this.groupBox3);
+            this.groupBox2.Controls.Add(this.pictureSingleLetter);
+            this.groupBox2.Location = new System.Drawing.Point(6, 328);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(611, 258);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = " Selected sample ";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.bDeleteSingleLetter);
+            this.groupBox4.Location = new System.Drawing.Point(322, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(153, 100);
+            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Other actions";
+            // 
+            // bDeleteSingleLetter
+            // 
+            this.bDeleteSingleLetter.Location = new System.Drawing.Point(11, 40);
+            this.bDeleteSingleLetter.Name = "bDeleteSingleLetter";
+            this.bDeleteSingleLetter.Size = new System.Drawing.Size(134, 23);
+            this.bDeleteSingleLetter.TabIndex = 3;
+            this.bDeleteSingleLetter.Text = "Delete from database";
+            this.bDeleteSingleLetter.UseVisualStyleBackColor = true;
+            this.bDeleteSingleLetter.Click += new System.EventHandler(this.bDeleteSingleLetter_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.tbSingleLetter);
+            this.groupBox3.Controls.Add(this.bSaveSingleLetter);
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Location = new System.Drawing.Point(163, 19);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(153, 100);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Letter";
+            // 
+            // tbSingleLetter
+            // 
+            this.tbSingleLetter.Location = new System.Drawing.Point(19, 35);
+            this.tbSingleLetter.Name = "tbSingleLetter";
+            this.tbSingleLetter.Size = new System.Drawing.Size(100, 20);
+            this.tbSingleLetter.TabIndex = 1;
+            // 
+            // bSaveSingleLetter
+            // 
+            this.bSaveSingleLetter.Location = new System.Drawing.Point(19, 62);
+            this.bSaveSingleLetter.Name = "bSaveSingleLetter";
+            this.bSaveSingleLetter.Size = new System.Drawing.Size(100, 23);
+            this.bSaveSingleLetter.TabIndex = 3;
+            this.bSaveSingleLetter.Text = "Save";
+            this.bSaveSingleLetter.UseVisualStyleBackColor = true;
+            this.bSaveSingleLetter.Click += new System.EventHandler(this.bSaveSingleLetter_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(16, 19);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(37, 13);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Letter:";
+            // 
+            // pictureSingleLetter
+            // 
+            this.pictureSingleLetter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSingleLetter.Location = new System.Drawing.Point(6, 19);
+            this.pictureSingleLetter.Name = "pictureSingleLetter";
+            this.pictureSingleLetter.Size = new System.Drawing.Size(140, 114);
+            this.pictureSingleLetter.TabIndex = 0;
+            this.pictureSingleLetter.TabStop = false;
             // 
             // bRefreshDatabaseView
             // 
@@ -929,6 +1000,25 @@
             this.bRefreshDatabaseView.TabIndex = 1;
             this.bRefreshDatabaseView.Text = "Refresh database listview";
             this.bRefreshDatabaseView.UseVisualStyleBackColor = true;
+            this.bRefreshDatabaseView.Click += new System.EventHandler(this.bRefreshDatabaseView_Click);
+            // 
+            // listviewDatabase
+            // 
+            this.listviewDatabase.Location = new System.Drawing.Point(3, 35);
+            this.listviewDatabase.Name = "listviewDatabase";
+            this.listviewDatabase.Size = new System.Drawing.Size(625, 287);
+            this.listviewDatabase.TabIndex = 0;
+            this.listviewDatabase.UseCompatibleStateImageBehavior = false;
+            this.listviewDatabase.SelectedIndexChanged += new System.EventHandler(this.listviewDatabase_SelectedIndexChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(744, 734);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(250, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Press Alt+Left and Alt+Right to move between tabs.";
             // 
             // BookwormForm
             // 
@@ -971,6 +1061,11 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1053,6 +1148,14 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button bRefreshDatabaseView;
         public System.Windows.Forms.ListView listviewDatabase;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button bDeleteSingleLetter;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox tbSingleLetter;
+        private System.Windows.Forms.Button bSaveSingleLetter;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureSingleLetter;
     }
 }
 

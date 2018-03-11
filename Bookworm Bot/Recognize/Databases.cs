@@ -33,5 +33,14 @@ namespace Bookworm.Recognize
                 return database;
             }
         }
+        internal static void Save(Database database)
+        {
+            using (FileStream fs = new FileStream(LETTERDB_FILEPATH, FileMode.Create, FileAccess.Write))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fs, database);
+                fs.Flush();
+            }
+        }
     }
 }

@@ -15,17 +15,33 @@ namespace Bookworm.Scan
         public Bitmap KeyboardBitmap { get; }
         public DateTime Timestamp { get; }
 
-        public Snapshot(Bitmap fullBitmap, Bitmap keyboardBitmap)
+        public Snapshot(Bitmap fullBitmap, Bitmap keyboardBitmap, SnapshotKeyboard keyboard)
         {
             this.FullBitmap = fullBitmap;
             this.KeyboardBitmap = keyboardBitmap;
+            this.Keyboard = keyboard;
             this.Timestamp = DateTime.Now;
+            int darks = this.Keyboard.Count(letter => letter.IsDark);
+            this.Keyboard.IsDark = darks >= this.Keyboard.Count * 0.6;
         }
     }
-    public class SnapshotKeyboard
+    public class SnapshotKeyboard : List<SnapshotLetter>
     {
-        internal void PaintSimplified(PaintEventArgs e, Rectangle simpleLetter)
+        public bool IsDark { get; internal set; }
+        internal void PaintSimplified(PaintEventArgs e, Rectangle whereTo, int letterIndex)
         {
+            SnapshotLetter letter = this[letterIndex];
+            int width = letter.SimplifiedData.GetLength(0);
+            int height = letter.SimplifiedData.GetLength(1);
+            int pointSize = whereTo.Width / width;
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y< height; y++)
+                {
+                    Rectangle rectPoint = new Rectangle(whereTo.X + x * pointSize, whereTo.Y + y * pointSize, pointSize, pointSize);
+                    e.Graphics.FillRectangle(new SolidBrush(letter.SimplifiedData[x, y]), rectPoint);
+                }
+            }
         }
     }
 }

@@ -13,11 +13,13 @@ namespace Bookworm
         public Autonomous Autonomous { get; } = new Autonomous();
         public Scanning Scan { get; }
         public GameStyle Style { get; } = GameStyle.LetterQuest;
-        public Database Database { get; set; }
+        public DatabaseManager Database { get; set; } = new DatabaseManager();
+        public Recognizator Recognizator { get; set; }
 
         public Bot()
         {
             Scan = new Scanning(this);
+            Recognizator = new Recognizator(this);
         }
     }
 }

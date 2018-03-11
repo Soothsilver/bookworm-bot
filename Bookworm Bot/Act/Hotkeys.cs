@@ -22,13 +22,32 @@ namespace Bookworm.Act
 
         public void LoadHotkeys()
         {
-            AddHotkey(Keys.Left, switchTabLeft, ctrl: true);
-            AddHotkey(Keys.Right, switchTabRight, ctrl: true);
+            AddHotkey(Keys.Left, switchTabLeft, alt: true);
+            AddHotkey(Keys.Right, switchTabRight, alt: true);
+            AddHotkey(Keys.R, saveUnknownsIntoDatabase, alt: true);
+            AddHotkey(Keys.R, saveAllIntoDatabase, alt: true, shift: true);
             /*
             AddHotkey(Keys.Q, switchAutonomity, ctrl: true);
             AddHotkey(Keys.W, scanGrid, ctrl: true);
             AddHotkey(Keys.Down, captureScreenPartDown, ctrl: true);*/
         }
+
+        private void saveAllIntoDatabase()
+        {
+            if (Bot.Scan.LastSnapshot != null)
+            {
+                Bot.Database.SaveAllSnapshotLettersIntoDatabase(Bot.Scan.LastSnapshot);
+            }
+        }
+
+        private void saveUnknownsIntoDatabase()
+        {
+            if (Bot.Recognizator.LastRecognitionResults != null)
+            {
+                Bot.Database.SaveUnknownSnapshotLettersIntoDatabase(Bot.Recognizator.LastRecognitionResults);
+            }
+        }
+
         void switchTabLeft()
         {
             if (Form.tabControl.SelectedIndex > 0)

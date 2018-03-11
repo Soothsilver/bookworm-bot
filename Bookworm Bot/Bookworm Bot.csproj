@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bookworm</RootNamespace>
     <AssemblyName>Bookworm Bot</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -38,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -47,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -78,9 +81,6 @@
     <Compile Include="Act\Positions.cs" />
     <Compile Include="Act\Hotkeys.cs" />
     <Compile Include="AnalyzedImage.cs" />
-    <Compile Include="BitmapParsing.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="BookwormForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +88,7 @@
       <DependentUpon>BookwormForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Bot.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Deprecated\StuffFromOldVersion.cs" />
     <Compile Include="GameStyle.cs" />
     <Compile Include="GarbageCollector.cs" />
@@ -102,6 +103,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Recognize\Database.cs" />
+    <Compile Include="Recognize\DatabaseManager.cs" />
+    <Compile Include="Recognize\RecognitionResults.cs" />
+    <Compile Include="Recognize\Recognizator.cs" />
+    <Compile Include="Recognize\RecognizedLetter.cs" />
     <Compile Include="Recognize\Sample.cs" />
     <Compile Include="Recognize\Databases.cs" />
     <Compile Include="Scan\Hooks.cs" />
@@ -109,6 +114,7 @@
     <Compile Include="Scan\ScreenCapture.cs" />
     <Compile Include="Scan\Screenpart.cs" />
     <Compile Include="Scan\Snapshot.cs" />
+    <Compile Include="Scan\SnapshotLetter.cs" />
     <Compile Include="TilePositions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
