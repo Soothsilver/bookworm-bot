@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookworm Bot", "Bejeweled Help\Bookworm Bot.csproj", "{49E1A56C-3BB0-45B0-9292-35AF59FAAB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookworm Adventures Bonus Word Decompiler", "BonusWordDecompiler\Bookworm Adventures Bonus Word Decompiler.csproj", "{88508743-DDCE-4144-ABB1-B9741392168D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34A53D5E-5BA1-4EDD-AA20-4601E290271B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49E1A56C-3BB0-45B0-9292-35AF59FAAB71}.Debug|x86.ActiveCfg = Debug|x86
+		{49E1A56C-3BB0-45B0-9292-35AF59FAAB71}.Debug|x86.Build.0 = Debug|x86
+		{49E1A56C-3BB0-45B0-9292-35AF59FAAB71}.Release|x86.ActiveCfg = Release|x86
+		{49E1A56C-3BB0-45B0-9292-35AF59FAAB71}.Release|x86.Build.0 = Release|x86
+		{88508743-DDCE-4144-ABB1-B9741392168D}.Debug|x86.ActiveCfg = Debug|x86
+		{88508743-DDCE-4144-ABB1-B9741392168D}.Debug|x86.Build.0 = Debug|x86
+		{88508743-DDCE-4144-ABB1-B9741392168D}.Release|x86.ActiveCfg = Release|x86
+		{88508743-DDCE-4144-ABB1-B9741392168D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
