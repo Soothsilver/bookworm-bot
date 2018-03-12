@@ -8,28 +8,25 @@ namespace Bookworm.Recognize
         public SnapshotLetter SnapshotLetter { get; }
         public string Letter { get; } = "";
 
-        public RecognizedLetter(RecognitionLetterKind kind, SnapshotLetter snapshotLetter)
+        public RecognizedLetter(RecognitionLetterKind kind, string letter, SnapshotLetter snapshotLetter)
         {
             this.SnapshotLetter = snapshotLetter;
             this.Kind = kind;
+            this.Letter = letter;
         }
+
 
         public override string ToString()
         {
-            if (Kind == RecognitionLetterKind.UnknownLetter)
-            {
-                return "??";
-            }
-            else
-            {
-                return Letter;
-            }
+            return Letter;
         }
     }
     public enum RecognitionLetterKind
     {
         Unspecified,
         UnknownLetter,
-        Letter
+        Letter,
+        RecognizedButAssigned,
+        Dark
     }
 }

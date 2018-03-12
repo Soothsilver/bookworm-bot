@@ -84,16 +84,22 @@ namespace Bookworm.Scan
             for (int i = 0; i < Constants.LETTERQUEST_KEYBOARD_LETTER_COUNT; i++)
             {
                 Rectangle letterPosition = Positions.LetterQuest.Letters[i];
-                Rectangle importantSection = Positions.LetterQuest.ImportantLetterSection;
-                Rectangle importantLetterPart = new Rectangle(letterPosition.X + importantSection.X, letterPosition.Y + importantSection.Y, importantSection.Width, importantSection.Height);
-                Color[,] imgData = GetColorDataFromBitmap(fullScreenBitmap, importantLetterPart, 10, 7);
+                Color[,] imgData = SimplifyLetter(fullScreenBitmap, letterPosition);
                 Bitmap thisLetterBitmap = new Bitmap(letterPosition.Width, letterPosition.Height);
                 Graphics g = Graphics.FromImage(thisLetterBitmap);
-                g.DrawImage(fullScreenBitmap, letterPosition);
+                g.DrawImage(fullScreenBitmap,0, 0, letterPosition, GraphicsUnit.Pixel);
                 g.Dispose();
                 list.Add(new SnapshotLetter(imgData, thisLetterBitmap));
             }
             return list;
+        }
+
+        public Color[,] SimplifyLetter(Bitmap bitmap, Rectangle whereIsLetterInBitmap)
+        {
+            Rectangle importantSection = Positions.LetterQuest.ImportantLetterSection;
+            Rectangle importantLetterPart = new Rectangle(whereIsLetterInBitmap.X + importantSection.X, whereIsLetterInBitmap.Y + importantSection.Y, importantSection.Width, importantSection.Height);
+            Color[,] imgData = GetColorDataFromBitmap(bitmap, importantLetterPart, 10, 7);
+            return imgData;
         }
 
         /// <summary>
@@ -134,7 +140,7 @@ namespace Bookworm.Scan
                     r /= pixels;
                     g /= pixels;
                     b /= pixels;
-                    if (r < 150 && g < 150 && b < 150)
+                    if (r < 175 && g < 175 && b < 175)
                     {
                         r = g = b = 0;
                     }

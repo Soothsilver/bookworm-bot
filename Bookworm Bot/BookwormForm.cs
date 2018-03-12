@@ -123,6 +123,7 @@ namespace Bookworm
                     // Simplified keyboard
                     Rectangle simplifiedKeyboard = new Rectangle(keyboardDisplayWidth + 20, 380, keyboardDisplayWidth, keyboardDisplayHeight);
                     Rectangle recognizedKeyboard = new Rectangle(10, 380 + keyboardDisplayHeight + 10, keyboardDisplayWidth, keyboardDisplayHeight);
+
                     // Guesses
                     for (int x = 0; x < 5; x++)
                     {
@@ -361,21 +362,6 @@ namespace Bookworm
 
         DateTime startAutomodeIn = DateTime.Now;
         public bool StartAutomodeDelayedOn = false;
-        private void bDelayedAutostart_Click(object sender, EventArgs e)
-        {/*
-            StartAutomodeDelayedOn = true;
-            startAutomodeIn = DateTime.Now.AddSeconds(10);*/
-        }
-
-        private void bRemoveFriend_Click(object sender, EventArgs e)
-        {/*
-            if (EditingLetter != null && EditingLetter.ClosestFriend != null)
-                if (LetterDB.Contains(EditingLetter.ClosestFriend))
-                {
-                    LetterDB.Remove(EditingLetter.ClosestFriend);
-                    EditingLetter.ClosestFriend = null;
-                }*/
-        }
 
         private void label15_Click(object sender, EventArgs e)
         {
@@ -396,6 +382,10 @@ namespace Bookworm
             {
                 imagelist.Images.Add(sample.Bitmap);
                 ListViewItem item = new ListViewItem("Letter " + i, i - 1);
+                if (sample.Kind == SampleKind.Known)
+                {
+                    item.Text = sample.Letter.ToString();
+                }
                 item.Tag = sample;
                 this.listviewDatabase.Items.Add(item);
                 i++;
@@ -436,6 +426,23 @@ namespace Bookworm
                         break;
                     }
                 }
+                LetterEditComplete();
+            }
+        }
+
+        private void LetterEditComplete()
+        {
+            if (listviewDatabase.SelectedIndices.Count == 1)
+            {
+                int index = listviewDatabase.SelectedIndices[0];
+                if (index >= 0 && index < listviewDatabase.Items.Count - 1)
+                {
+                    listviewDatabase.SelectedIndices.Clear();
+                    listviewDatabase.SelectedIndices.Add(index + 1);
+                    listviewDatabase.Refresh();
+                    this.tbSingleLetter.Select();
+                    this.tbSingleLetter.SelectAll();
+                }
             }
         }
 
@@ -446,9 +453,24 @@ namespace Bookworm
                 if (this.tbSingleLetter.Text.Length == 1)
                 {
                     this.EditingLetter.Kind = SampleKind.Known;
-                    this.EditingLetter.Letter = this.tbSingleLetter.Text[0];
+                    this.EditingLetter.Letter = this.tbSingleLetter.Text.ToUpper()[0];
                     Bot.Database.SaveDatabase();
                 }
+                LetterEditComplete();
+            }
+        }
+
+        private void bClearDatabase_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to delete ALL the selected database items?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var collection = listviewDatabase.SelectedItems;
+                foreach (var item in collection)
+                {
+                    Bot.Database.Remove(((LetterSample)((ListViewItem)item).Tag));
+                }
+                Bot.Database.SaveDatabase();
+                RefreshDatabaseListView();
             }
         }
     }

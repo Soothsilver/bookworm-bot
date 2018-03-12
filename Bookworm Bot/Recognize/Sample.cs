@@ -12,6 +12,9 @@ namespace Bookworm.Recognize
     [Serializable]
     public class LetterSample : Sample
     {
+        public bool Scanned { get; set; } = false;
+        public Color[,] ColorData { get; set; } = null;
+
         public SampleKind Kind { get; set; }
         public char Letter { get; set; }
 

@@ -9,35 +9,50 @@ namespace Bookworm.Recognize
 {
     public class DatabaseManager
     {
+
+        public object DatabaseLock { get; } = new object();
         public Database Database { get; set; }
 
         internal void SaveAllSnapshotLettersIntoDatabase(Snapshot snapshot)
         {
-            foreach(SnapshotLetter letter in snapshot.Keyboard)
+            lock (DatabaseLock)
             {
-                Database.Add(new LetterSample(letter));
+                foreach (SnapshotLetter letter in snapshot.Keyboard)
+                {
+                    Database.Add(new LetterSample(letter));
+                }
+                this.SaveDatabase();
             }
-            this.SaveDatabase();
         }
 
         internal void SaveUnknownSnapshotLettersIntoDatabase(RecognitionResults recognitionResults)
         {
-            foreach (RecognizedLetter letter in recognitionResults.Keyboard.Where(rl => rl.Kind == RecognitionLetterKind.UnknownLetter))
+            lock (DatabaseLock)
             {
-                Database.Add(new LetterSample(letter.SnapshotLetter));
+                foreach (RecognizedLetter letter in recognitionResults.Keyboard.Where(rl => rl.Kind == RecognitionLetterKind.UnknownLetter))
+                {
+                    Database.Add(new LetterSample(letter.SnapshotLetter));
+                }
+                this.SaveDatabase();
             }
-            this.SaveDatabase();
         }
 
         public void SaveDatabase()
         {
-            Databases.Save(Database);            
+            lock (DatabaseLock)
+            {
+                Database.FirstTimeLaunch = false;
+                Databases.Save(Database);
+            }
         }
 
         internal void Remove(LetterSample editingLetter)
         {
-            this.Database.Remove(editingLetter);
-            SaveDatabase();
+            lock (DatabaseLock)
+            {
+                this.Database.Remove(editingLetter);
+                SaveDatabase();
+            }
         }
     }
 }

@@ -113,6 +113,7 @@
             this.bRefreshDatabaseView = new System.Windows.Forms.Button();
             this.listviewDatabase = new System.Windows.Forms.ListView();
             this.label11 = new System.Windows.Forms.Label();
+            this.bDeleteSelected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panelTraining.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -740,7 +741,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(645, 728);
             this.tabControl.TabIndex = 23;
-            this.tabControl.TabIndexChanged += new System.EventHandler(this.tabControl_TabIndexChanged);
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_TabIndexChanged);
             // 
             // tabPage2
             // 
@@ -902,6 +903,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.bDeleteSelected);
             this.tabPage5.Controls.Add(this.groupBox2);
             this.tabPage5.Controls.Add(this.bRefreshDatabaseView);
             this.tabPage5.Controls.Add(this.listviewDatabase);
@@ -928,7 +930,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.bDeleteSingleLetter);
-            this.groupBox4.Location = new System.Drawing.Point(322, 19);
+            this.groupBox4.Location = new System.Drawing.Point(387, 19);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(153, 100);
             this.groupBox4.TabIndex = 5;
@@ -950,7 +952,7 @@
             this.groupBox3.Controls.Add(this.tbSingleLetter);
             this.groupBox3.Controls.Add(this.bSaveSingleLetter);
             this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Location = new System.Drawing.Point(163, 19);
+            this.groupBox3.Location = new System.Drawing.Point(228, 19);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(153, 100);
             this.groupBox3.TabIndex = 4;
@@ -988,7 +990,7 @@
             this.pictureSingleLetter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureSingleLetter.Location = new System.Drawing.Point(6, 19);
             this.pictureSingleLetter.Name = "pictureSingleLetter";
-            this.pictureSingleLetter.Size = new System.Drawing.Size(140, 114);
+            this.pictureSingleLetter.Size = new System.Drawing.Size(173, 136);
             this.pictureSingleLetter.TabIndex = 0;
             this.pictureSingleLetter.TabStop = false;
             // 
@@ -1019,6 +1021,16 @@
             this.label11.Size = new System.Drawing.Size(250, 13);
             this.label11.TabIndex = 24;
             this.label11.Text = "Press Alt+Left and Alt+Right to move between tabs.";
+            // 
+            // bDeleteSelected
+            // 
+            this.bDeleteSelected.Location = new System.Drawing.Point(477, 6);
+            this.bDeleteSelected.Name = "bDeleteSelected";
+            this.bDeleteSelected.Size = new System.Drawing.Size(151, 23);
+            this.bDeleteSelected.TabIndex = 3;
+            this.bDeleteSelected.Text = "Delete selected";
+            this.bDeleteSelected.UseVisualStyleBackColor = true;
+            this.bDeleteSelected.Click += new System.EventHandler(this.bClearDatabase_Click);
             // 
             // BookwormForm
             // 
@@ -1156,6 +1168,7 @@
         private System.Windows.Forms.Button bSaveSingleLetter;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureSingleLetter;
+        private System.Windows.Forms.Button bDeleteSelected;
     }
 }
 

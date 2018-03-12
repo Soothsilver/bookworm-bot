@@ -8,7 +8,7 @@ namespace Bookworm.Recognize
     [Serializable]
     public class Database : List<Sample>
     {
-        public bool FirstTimeLaunch { get; }
+        public bool FirstTimeLaunch { get; set; }
 
         public Database(bool firstTimeLaunch)
         {

@@ -10,6 +10,7 @@ namespace Bookworm.Recognize
     class Databases
     {
         public static string LETTERDB_FILEPATH = "letterdb.dat";
+        public static string LETTERDB_BACKUP_FILEPATH = "letterdb.dat.bak";
         public static string ATTACKPOSSIBLE_FILEPATH = "attackPossible.dat";
         public static string ATTACKIMPOSSIBLE_FILEPATH = "attackImpossible.dat";
 
@@ -35,6 +36,7 @@ namespace Bookworm.Recognize
         }
         internal static void Save(Database database)
         {
+            File.Copy(LETTERDB_FILEPATH, LETTERDB_BACKUP_FILEPATH, true);
             using (FileStream fs = new FileStream(LETTERDB_FILEPATH, FileMode.Create, FileAccess.Write))
             {
                 BinaryFormatter bf = new BinaryFormatter();
