@@ -1,4 +1,5 @@
 ﻿using Bookworm.Scan;
+using Bookworm.Scrabble;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,11 +32,11 @@ namespace Bookworm.Output
                 TimeSpan timeElapsed = DateTime.Now - lastScan;
                 if (timeElapsed.TotalSeconds <= 2)
                 {
-                    UpdateStatusLabel(form.lblScanningStatus, Color.LimeGreen, "OK (" + timeElapsed.TotalSeconds + "s)");
+                    UpdateStatusLabel(form.lblScanningStatus, Color.Green, "OK (" + timeElapsed.TotalSeconds + "s)");
                 }
                 else
                 {
-                    UpdateStatusLabel(form.lblScanningStatus, Color.Orange, "Warning (" + timeElapsed.TotalSeconds + "s since last scan)");
+                    UpdateStatusLabel(form.lblScanningStatus, Color.Orange, "Warning (" + timeElapsed.TotalSeconds + "s)");
                 }
             }
             // Recognize status
@@ -53,11 +54,11 @@ namespace Bookworm.Output
                         TimeSpan timeElapsed = DateTime.Now - recognition.Timestamp;
                         if (timeElapsed.TotalSeconds <= 2)
                         {
-                            UpdateStatusLabel(form.lblRecognizingStatus, Color.LimeGreen, "OK (" + timeElapsed.TotalSeconds + "s)");
+                            UpdateStatusLabel(form.lblRecognizingStatus, Color.Green, "OK (" + timeElapsed.TotalSeconds + "s)");
                         }
                         else
                         {
-                            UpdateStatusLabel(form.lblRecognizingStatus, Color.Orange, "Warning (" + timeElapsed.TotalSeconds + "s since last recognition)");
+                            UpdateStatusLabel(form.lblRecognizingStatus, Color.Orange, "Warning (" + timeElapsed.TotalSeconds + "s)");
                         }
                     }
                     else
@@ -67,6 +68,51 @@ namespace Bookworm.Output
                 }
             }
             UpdateDatabaseStatusLabel();
+            // Scrabble status
+            if (form.Bot.Vocabulary.VocabularyLoaded)
+            {
+                UpdateStatusLabel(form.lblWordlistStatus, Color.Green, "Loaded (" + form.Bot.Vocabulary.Vocabulary.Count + " words)");
+                if (form.Bot.Vocabulary.LastScrabbleResult != null)
+                {
+                    Word bestWord = form.Bot.Vocabulary.LastScrabbleResult.BestWord;
+                    if (bestWord != null)
+                    {
+                        UpdateStatusLabel(form.lblBestWord, Color.Green, bestWord.Text);
+                    }
+                    else
+                    {
+                        UpdateStatusLabel(form.lblBestWord, Color.Orange, "No word found");
+                    }
+                    TimeSpan timeElapsed = DateTime.Now - form.Bot.Vocabulary.LastScrabbleResult.Timestamp;
+                    if (timeElapsed.TotalSeconds <= 2)
+                    {
+                        UpdateStatusLabel(form.lblWordformingStatus, Color.Green, "OK (" + timeElapsed.TotalSeconds + "s)");
+                    }
+                    else
+                    {
+                        UpdateStatusLabel(form.lblWordformingStatus, Color.Orange, "Warning (" + timeElapsed.TotalSeconds + "s)");
+                    }
+                }
+                else
+                {
+                    UpdateStatusLabel(form.lblWordformingStatus, Color.Red, "Never");
+                }
+            }
+            else
+            {
+                UpdateStatusLabel(form.lblWordformingStatus, Color.Red, "Wordlist not yet loaded");
+                UpdateStatusLabel(form.lblWordlistStatus, Color.Orange, "Loading...");
+            }
+            // Autonomous
+            if (form.Bot.Autonomous.IsAutonomous)
+            {
+                UpdateStatusLabel(form.lblAutonomousModeStatus, Color.Black, form.Bot.Autonomous.Status);
+            }
+            else
+            {
+                UpdateStatusLabel(form.lblAutonomousModeStatus, Color.Red, "Disabled");
+            }
+
         }
 
         private void UpdateDatabaseStatusLabel()

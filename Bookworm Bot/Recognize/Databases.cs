@@ -11,22 +11,10 @@ namespace Bookworm.Recognize
     {
         public static string LETTERDB_FILEPATH = "letterdb.dat";
         public static string LETTERDB_BACKUP_FILEPATH = "letterdb.dat.bak";
-        public static string ATTACKPOSSIBLE_FILEPATH = "attackPossible.dat";
-        public static string ATTACKIMPOSSIBLE_FILEPATH = "attackImpossible.dat";
-
-        private void SerializeLetterDB()
+    
+        internal static Database Load(string filepath)
         {
-            using (System.IO.FileStream s = new System.IO.FileStream("letterdb.dat", System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-              //  bf.Serialize(s, LetterDB);
-                s.Flush();
-            }
-        }
-
-        internal static Database Load()
-        {
-            using (FileStream fs = new FileStream(LETTERDB_FILEPATH, FileMode.OpenOrCreate, FileAccess.Read))
+            using (FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 Database database = (Database)bf.Deserialize(fs);
@@ -34,10 +22,10 @@ namespace Bookworm.Recognize
                 return database;
             }
         }
-        internal static void Save(Database database)
+        internal static void Save(Database database, string filepath)
         {
-            File.Copy(LETTERDB_FILEPATH, LETTERDB_BACKUP_FILEPATH, true);
-            using (FileStream fs = new FileStream(LETTERDB_FILEPATH, FileMode.Create, FileAccess.Write))
+            File.Copy(filepath, LETTERDB_BACKUP_FILEPATH, true);
+            using (FileStream fs = new FileStream(filepath, FileMode.Create, FileAccess.Write))
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(fs, database);

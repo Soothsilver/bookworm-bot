@@ -1,4 +1,5 @@
-﻿using ManagedWinapi;
+﻿using Bookworm.Recognize;
+using ManagedWinapi;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,10 +27,62 @@ namespace Bookworm.Act
             AddHotkey(Keys.Right, switchTabRight, alt: true);
             AddHotkey(Keys.R, saveUnknownsIntoDatabase, alt: true);
             AddHotkey(Keys.R, saveAllIntoDatabase, alt: true, shift: true);
-            /*
-            AddHotkey(Keys.Q, switchAutonomity, ctrl: true);
-            AddHotkey(Keys.W, scanGrid, ctrl: true);
-            AddHotkey(Keys.Down, captureScreenPartDown, ctrl: true);*/
+            AddHotkey(Keys.L, toggleLockMode, alt: true);
+            AddHotkey(Keys.Q, switchAutonomity, alt: true);
+            AddHotkey(Keys.NumPad4, () => moveReticle(-1, 0));
+            AddHotkey(Keys.NumPad6, () => moveReticle(1, 0));
+            AddHotkey(Keys.NumPad8, () => moveReticle(0, -1));
+            AddHotkey(Keys.NumPad2, () => moveReticle(0, 1));
+            AddHotkey(Keys.NumPad5, rememberLockTarget);
+            AddHotkey(Keys.NumPad0, rememberAndSortLockTarget);
+        }
+
+        private void rememberLockTarget()
+        {
+            if (Form.LockMode.Active)
+            {
+                if (Form.Bot.Scan.LastSnapshot != null)
+                {
+                    var letter = Form.Bot.Scan.LastSnapshot.Keyboard[Form.LockMode.Y * 5 + Form.LockMode.X];
+                    Form.Bot.Database.AddSingle(letter);
+                }
+            }
+        }
+        private void rememberAndSortLockTarget()
+        {
+            if (Form.LockMode.Active)
+            {
+                if (Form.Bot.Scan.LastSnapshot != null && Form.Bot.Recognizator.LastRecognitionResults != null)
+                {
+                    var letter = Form.Bot.Scan.LastSnapshot.Keyboard[Form.LockMode.Y * 5 + Form.LockMode.X];
+                    LetterSample ls = new LetterSample(letter);
+                    ls.Kind = SampleKind.Known;
+                    var recLetter = Form.Bot.Recognizator.LastRecognitionResults.Keyboard[Form.LockMode.Y * 5 + Form.LockMode.X];
+                    if (recLetter.Letter.Length >= 2)
+                    {
+                        ls.Letter = recLetter.Letter.ToUpper()[1];
+                        Form.Bot.Database.AddSingle(ls);
+                    }
+                }
+            }
+        }
+
+        private void moveReticle(int x, int y)
+        {
+            if (Form.LockMode.Active)
+            {
+                Form.LockMode.X += x;
+                Form.LockMode.Y += y;
+                if (Form.LockMode.X < 0) Form.LockMode.X = 0;
+                if (Form.LockMode.Y < 0) Form.LockMode.Y = 0;
+                if (Form.LockMode.X > 4) Form.LockMode.X = 4;
+                if (Form.LockMode.Y > 2) Form.LockMode.Y = 2;
+            }
+        }
+
+        private void toggleLockMode()
+        {
+            Form.LockMode.Active = !Form.LockMode.Active;
         }
 
         private void saveAllIntoDatabase()
@@ -53,6 +106,9 @@ namespace Bookworm.Act
             if (Form.tabControl.SelectedIndex > 0)
             {
                 Form.tabControl.SelectedIndex--;
+            } else
+            {
+                Form.tabControl.SelectedIndex = Form.tabControl.TabCount - 1;
             }
         }
         void switchTabRight()
@@ -60,59 +116,25 @@ namespace Bookworm.Act
             if (Form.tabControl.SelectedIndex < Form.tabControl.TabPages.Count - 1)
             {
                 Form.tabControl.SelectedIndex++;
-            }
-        }
-        public void switchAutonomity(object sender, EventArgs e)
-        {
-            Bot.Autonomous.IsAutonomous = !Bot.Autonomous.IsAutonomous;
-        }
-
-      //  private void CaptureScreenpart(Screenpart screenpart)
-      //  {
-            /*
-            Rectangle scanWhat = new Rectangle(0, 0, 10, 10);
-            switch (screenpart)
+            } 
+            else
             {
-                case Screenpart.AttackAvailable: scanWhat = rectAttack; break;
-                case Screenpart.AttackNone: scanWhat = rectAttack; break;
-                case Screenpart.HealthPotionAvailable: scanWhat = rectLifePotion; break;
-                case Screenpart.HealthPotionNone: scanWhat = rectLifePotion; break;
-                case Screenpart.PowerupPotionAvailable: scanWhat = rectPowerupPotion; break;
-                case Screenpart.PowerupPotionNone: scanWhat = rectPowerupPotion; break;
-                case Screenpart.PurifyPotionAvailable: scanWhat = rectPurifyPotion; break;
-                case Screenpart.PurifyPotionNone: scanWhat = rectPurifyPotion; break;
-                case Screenpart.ScrambleAvailable: scanWhat = rectScramble; break;
-                case Screenpart.ScrambleNone: scanWhat = rectScramble; break;
-
+                Form.tabControl.SelectedIndex = 0;
             }
-            AnalyzedImage aimage = new AnalyzedImage();
-            Bitmap LastCaptureBitmap = new Bitmap(LastCapture);
-            aimage.ColorData = GetColorDataFromBitmap(LastCaptureBitmap, scanWhat,
-                       10, out aimage.ColorDataWidth, out aimage.ColorDataHeight);
-            ScreenPartPictures[screenpart].Add(aimage);
-            SerializeScreenparts();*/
-  //      }
-        public void captureScreenPartDown(object sender, EventArgs e)
-        {
-            // CaptureScreenpart(GettingImagesForScreenpartDown);
         }
-
-       
-        public void scanGrid(object sender, EventArgs e)
+        public void switchAutonomity()
         {
-            /*
-            LastRecognizedKeyboard = FormInstance.Keyboard;
-            RecognizeLetters(FormInstance.Keyboard, false);
-            */
+            if (Bot.Autonomous.IsAutonomous)
+            {
+                Bot.Autonomous.IsAutonomous = false;
+            }
+            else
+            {
+                Bot.Autonomous.WakeUp();
+                Bot.Autonomous.IsAutonomous = true;
+            }
         }
-        public void scanGridAndPutAllInDB(object sender, EventArgs e)
-        {
-            /*
-            LastRecognizedKeyboard = FormInstance.Keyboard;
-            RecognizeLetters(FormInstance.Keyboard, true);
-            */
-        }
-
+        
         public void AddHotkey(
             Keys code,
             Action hotkeyAction,

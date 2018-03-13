@@ -24,6 +24,7 @@ namespace Bookworm
         Random rgen = new Random();
         public Hotkeys Hotkeys;
         public Bot Bot = new Bot();
+        public LockModeState LockMode = new LockModeState();
 
         public StatusOutput StatusOutput;
         public bool DoAnalyzeMode = true;
@@ -32,29 +33,18 @@ namespace Bookworm
         public BookwormForm()
         {
             InitializeComponent();
+            LockMode.Active = true;
             BookwormForm.FormInstance = this;
             Hotkeys = new Hotkeys(Bot, this); 
             StatusOutput = new StatusOutput(this);
             Hotkeys.LoadHotkeys();
             bLoadAndParseDictionary_Click(this, EventArgs.Empty);
-            Bot.Database.Database = LoadDatabase();
+            this.cbDatabase.SelectedIndex = 1;
+            Bot.Database.SwitchDatabase(this.cbDatabase.SelectedItem.ToString());
+            Bot.Vocabulary.LoadGrimmDictionaryAsync();
             GarbageCollector.StartCollectingInBackground();
-
             // LoadTilePositions();
-        }
-
-        private Database LoadDatabase()
-        {
-            try
-            {
-                return Databases.Load();
-            } 
-            catch (Exception exception)
-            {
-                LogException(exception);
-                return new Database(true);
-            }
-        }
+        }        
 
         private void LogException(Exception exception)
         {
@@ -67,7 +57,6 @@ namespace Bookworm
         {
             // Capture
             Bot.Scan.PerformCapture();
-            // this.panelGridIsDark.Visible = (GridLuminosity < 900000);
             
             // Redraw pictures
             this.picturebox.Invalidate();
@@ -76,30 +65,14 @@ namespace Bookworm
             // Update status
             this.StatusOutput.UpdateAllStatus();
             
-
             // Autonomous
+            this.Bot.Autonomous.Tick();
                        
             // Composure display
             //  this.panelRegainingComposure.Visible = RegainingComposure;
-
-            // Capture display
-            /*
-            if (GettingImagesForScreenpartDown != Screenpart.Null)
-            {
-                this.panelCapture.Visible = true;
-                this.lblCaptureUp.Text = "Capturing up (" + ScreenPartPictures[GettingImagesForScreenpartUp].Count + "): " + System.Enum.GetName(typeof(Screenpart), GettingImagesForScreenpartUp);
-                this.lblCaptureDown.Text = "Capturing dn (" + ScreenPartPictures[GettingImagesForScreenpartDown].Count + "): " + System.Enum.GetName(typeof(Screenpart), GettingImagesForScreenpartDown);
-            }
-            this.panelAutomode.Visible = Autonomous;
-            */
+                     
             this.lblPaused.Visible = false;
-
         }
-        Rectangle rectAttackButton = new Rectangle(1129, 645, 191, 191);
-        List<Letter> LastRecognizedKeyboard = new List<Letter>();
-        List<Letter> Keyboard = new List<Letter>();
-        List<AnalyzedImage> AttackPossibleButtons = new List<AnalyzedImage>();
-        List<AnalyzedImage> AttackImpossibleButtons = new List<AnalyzedImage>();
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -138,8 +111,13 @@ namespace Bookworm
                             {
                                 Rectangle recognizedLetter = new Rectangle(recognizedKeyboard.X + x * recognizedKeyboard.Width / 5, recognizedKeyboard.Y + y * recognizedKeyboard.Height / 3,
                                     recognizedKeyboard.Width / 5, recognizedKeyboard.Height / 3);
-                                e.Graphics.DrawString(Bot.Recognizator.LastRecognitionResults.Keyboard[y*5+x].ToString(), DefaultFont, Brushes.White, recognizedLetter.X + 5, recognizedLetter.Y + 5);
+                                e.Graphics.DrawString(Bot.Recognizator.LastRecognitionResults.Keyboard[y*5+x].DisplayTwoLine, DefaultFont, Brushes.White, recognizedLetter.X + 5, recognizedLetter.Y + 5);
                                 e.Graphics.DrawRectangle(Pens.White, recognizedLetter);
+                                if (LockMode.Active && LockMode.X == x && LockMode.Y == y)
+                                {
+                                    e.Graphics.DrawRectangle(new Pen(Brushes.Yellow, 3), recognizedLetter);
+                                    e.Graphics.DrawRectangle(new Pen(Brushes.Yellow, 3), simpleLetter);
+                                }
                             }
                         }
                     }
@@ -157,17 +135,12 @@ namespace Bookworm
         
 
         public int CurrentIndexOfUnrecognizedLetter = -1;
-   
-        private void LoadLetterToTrainPanel(Letter letter)
-        {
-          
-        }
+  
 
         private void bChooseKnownLetter_Click(object sender, EventArgs e)
         {
             if (cbKnownLetters.Items.Count > 0 && cbKnownLetters.SelectedIndex >= 0)
             {
-                LoadLetterToTrainPanel((Letter)cbKnownLetters.Items[cbKnownLetters.SelectedIndex]);
             }
         }
 
@@ -386,6 +359,10 @@ namespace Bookworm
                 {
                     item.Text = sample.Letter.ToString();
                 }
+                if (sample.Kind == SampleKind.BannedStone)
+                {
+                    item.Text = "Banned";
+                }
                 item.Tag = sample;
                 this.listviewDatabase.Items.Add(item);
                 i++;
@@ -439,6 +416,7 @@ namespace Bookworm
                 {
                     listviewDatabase.SelectedIndices.Clear();
                     listviewDatabase.SelectedIndices.Add(index + 1);
+                    listviewDatabase.Items[index + 1].Selected = true;
                     listviewDatabase.Refresh();
                     this.tbSingleLetter.Select();
                     this.tbSingleLetter.SelectAll();
@@ -471,6 +449,49 @@ namespace Bookworm
                 }
                 Bot.Database.SaveDatabase();
                 RefreshDatabaseListView();
+            }
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBestWord_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblWordformingStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bSwitchDatabase_Click(object sender, EventArgs e)
+        {
+            this.tabControl.SelectedIndex = 5;
+        }
+
+        private void bSwitchDatabasesNow_Click(object sender, EventArgs e)
+        {
+            string dbname = this.cbDatabase.SelectedItem.ToString();
+            Bot.Database.SwitchDatabase(dbname);
+        }
+
+        private void bBanLetter_Click(object sender, EventArgs e)
+        {
+            if (this.EditingLetter != null)
+            {
+               
+                this.EditingLetter.Kind = SampleKind.BannedStone;
+                Bot.Database.SaveDatabase();
+                
+                LetterEditComplete();
             }
         }
     }

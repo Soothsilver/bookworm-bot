@@ -7,11 +7,20 @@ namespace Bookworm.Recognize
         public RecognitionLetterKind Kind { get; }
         public SnapshotLetter SnapshotLetter { get; }
         public string Letter { get; } = "";
+        public string DisplayTwoLine { get; } = "";
+        public bool IsRecognized
+        {
+            get
+            {
+                return Kind == RecognitionLetterKind.Letter || Kind == RecognitionLetterKind.RecognizedButUnassigned || Kind == RecognitionLetterKind.BannedLetter;
+            }
+        }
 
-        public RecognizedLetter(RecognitionLetterKind kind, string letter, SnapshotLetter snapshotLetter)
+        public RecognizedLetter(RecognitionLetterKind kind, string letter, string desc, SnapshotLetter snapshotLetter)
         {
             this.SnapshotLetter = snapshotLetter;
             this.Kind = kind;
+            this.DisplayTwoLine = letter + "\n" + desc;
             this.Letter = letter;
         }
 
@@ -26,7 +35,8 @@ namespace Bookworm.Recognize
         Unspecified,
         UnknownLetter,
         Letter,
-        RecognizedButAssigned,
-        Dark
+        RecognizedButUnassigned,
+        Dark,
+        BannedLetter
     }
 }

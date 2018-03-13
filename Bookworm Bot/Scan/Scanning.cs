@@ -84,7 +84,7 @@ namespace Bookworm.Scan
             for (int i = 0; i < Constants.LETTERQUEST_KEYBOARD_LETTER_COUNT; i++)
             {
                 Rectangle letterPosition = Positions.LetterQuest.Letters[i];
-                Color[,] imgData = SimplifyLetter(fullScreenBitmap, letterPosition);
+                Color[,] imgData = Bot.PresageAndRecognize.SimplifyLetter(fullScreenBitmap, letterPosition);
                 Bitmap thisLetterBitmap = new Bitmap(letterPosition.Width, letterPosition.Height);
                 Graphics g = Graphics.FromImage(thisLetterBitmap);
                 g.DrawImage(fullScreenBitmap,0, 0, letterPosition, GraphicsUnit.Pixel);
@@ -94,66 +94,6 @@ namespace Bookworm.Scan
             return list;
         }
 
-        public Color[,] SimplifyLetter(Bitmap bitmap, Rectangle whereIsLetterInBitmap)
-        {
-            Rectangle importantSection = Positions.LetterQuest.ImportantLetterSection;
-            Rectangle importantLetterPart = new Rectangle(whereIsLetterInBitmap.X + importantSection.X, whereIsLetterInBitmap.Y + importantSection.Y, importantSection.Width, importantSection.Height);
-            Color[,] imgData = GetColorDataFromBitmap(bitmap, importantLetterPart, 10, 7);
-            return imgData;
-        }
-
-        /// <summary>
-        /// Gets the color data for a part of a bitmap. Data from adjacent pixels is collapsed into a single element. The WIDTH COLLAPSE parameter determines how many horizontal
-        /// pixels are made into one. The HEIGHT COLLAPSE does the same for vertical. RECTANGLE is the part of of the bitmap from which data is got.
-        /// </summary>
-        private Color[,] GetColorDataFromBitmap(Bitmap bitmap, Rectangle rectangle, int widthCollapse, int heightCollapse)
-        {
-            int gwidth = rectangle.Width / widthCollapse;
-            int gheight = rectangle.Height / heightCollapse;
-            Color[,] grid = new Color[gwidth, gheight];
-
-            for (int x = 0; x < gwidth; x++)
-            {
-                for (int y = 0; y < gheight; y++)
-                {
-                    // One ROI
-                    int r = 0;
-                    int g = 0;
-                    int b = 0;
-                    int pixels = 0;
-                    for (int i = 0; i < widthCollapse; i++)
-                    {
-                        int thisx = i + x * widthCollapse + rectangle.X;
-                        if (thisx >= rectangle.Right) break;
-                        for (int j = 0; j < heightCollapse; j++)
-                        {
-                            // One pixel
-                            int thisy = j + y * heightCollapse + rectangle.Y;
-                            if (thisy >= rectangle.Bottom) break;
-                            Color c = bitmap.GetPixel(thisx, thisy);
-                            r += c.R;
-                            g += c.G;
-                            b += c.B;
-                            pixels++;
-                        }
-                    }
-                    r /= pixels;
-                    g /= pixels;
-                    b /= pixels;
-                    if (r < 175 && g < 175 && b < 175)
-                    {
-                        r = g = b = 0;
-                    }
-                    else
-                    {
-                        r = g = b = 255;
-                    }
-                    grid[x, y] = Color.FromArgb(r, g, b);
-                }
-            }
-
-            return grid;
-        }
 
     }
 

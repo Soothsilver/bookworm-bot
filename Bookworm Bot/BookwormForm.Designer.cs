@@ -88,6 +88,15 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.bSwitchDatabase = new System.Windows.Forms.Button();
+            this.lblAutonomousModeStatus = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lblBestWord = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.lblWordformingStatus = new System.Windows.Forms.Label();
+            this.lblWordlistStatus = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.lblDatabaseStatus = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lblRecognizingStatus = new System.Windows.Forms.Label();
@@ -102,6 +111,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.bDeleteSelected = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.bDeleteSingleLetter = new System.Windows.Forms.Button();
@@ -112,8 +122,12 @@
             this.pictureSingleLetter = new System.Windows.Forms.PictureBox();
             this.bRefreshDatabaseView = new System.Windows.Forms.Button();
             this.listviewDatabase = new System.Windows.Forms.ListView();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.bSwitchDatabasesNow = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cbDatabase = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.bDeleteSelected = new System.Windows.Forms.Button();
+            this.bBanLetter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panelTraining.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -133,6 +147,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).BeginInit();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // picturebox
@@ -207,7 +222,6 @@
             this.bRemoveFriend.TabIndex = 28;
             this.bRemoveFriend.Text = "Remove friend";
             this.bRemoveFriend.UseVisualStyleBackColor = true;
-            this.bRemoveFriend.Click += new System.EventHandler(this.bRemoveFriend_Click);
             // 
             // chLocked
             // 
@@ -736,6 +750,7 @@
             this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Controls.Add(this.tabPage4);
             this.tabControl.Controls.Add(this.tabPage5);
+            this.tabControl.Controls.Add(this.tabPage6);
             this.tabControl.Location = new System.Drawing.Point(743, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -745,6 +760,15 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.bSwitchDatabase);
+            this.tabPage2.Controls.Add(this.lblAutonomousModeStatus);
+            this.tabPage2.Controls.Add(this.label20);
+            this.tabPage2.Controls.Add(this.lblBestWord);
+            this.tabPage2.Controls.Add(this.label19);
+            this.tabPage2.Controls.Add(this.lblWordformingStatus);
+            this.tabPage2.Controls.Add(this.lblWordlistStatus);
+            this.tabPage2.Controls.Add(this.label18);
+            this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.lblDatabaseStatus);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.lblRecognizingStatus);
@@ -760,6 +784,100 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced status";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // bSwitchDatabase
+            // 
+            this.bSwitchDatabase.Location = new System.Drawing.Point(475, 67);
+            this.bSwitchDatabase.Name = "bSwitchDatabase";
+            this.bSwitchDatabase.Size = new System.Drawing.Size(88, 22);
+            this.bSwitchDatabase.TabIndex = 17;
+            this.bSwitchDatabase.Text = "Switch...";
+            this.bSwitchDatabase.UseVisualStyleBackColor = true;
+            this.bSwitchDatabase.Click += new System.EventHandler(this.bSwitchDatabase_Click);
+            // 
+            // lblAutonomousModeStatus
+            // 
+            this.lblAutonomousModeStatus.AutoSize = true;
+            this.lblAutonomousModeStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblAutonomousModeStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblAutonomousModeStatus.Location = new System.Drawing.Point(152, 213);
+            this.lblAutonomousModeStatus.Name = "lblAutonomousModeStatus";
+            this.lblAutonomousModeStatus.Size = new System.Drawing.Size(99, 13);
+            this.lblAutonomousModeStatus.TabIndex = 16;
+            this.lblAutonomousModeStatus.Text = "Not autonomous";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(17, 213);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(129, 13);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Autonomous mode status:";
+            // 
+            // lblBestWord
+            // 
+            this.lblBestWord.AutoSize = true;
+            this.lblBestWord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblBestWord.ForeColor = System.Drawing.Color.Red;
+            this.lblBestWord.Location = new System.Drawing.Point(92, 133);
+            this.lblBestWord.Name = "lblBestWord";
+            this.lblBestWord.Size = new System.Drawing.Size(23, 13);
+            this.lblBestWord.TabIndex = 13;
+            this.lblBestWord.Text = "No";
+            this.lblBestWord.Click += new System.EventHandler(this.lblBestWord_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(29, 133);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(57, 13);
+            this.label19.TabIndex = 12;
+            this.label19.Text = "Best word:";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // lblWordformingStatus
+            // 
+            this.lblWordformingStatus.AutoSize = true;
+            this.lblWordformingStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblWordformingStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblWordformingStatus.Location = new System.Drawing.Point(92, 103);
+            this.lblWordformingStatus.Name = "lblWordformingStatus";
+            this.lblWordformingStatus.Size = new System.Drawing.Size(23, 13);
+            this.lblWordformingStatus.TabIndex = 11;
+            this.lblWordformingStatus.Text = "No";
+            this.lblWordformingStatus.Click += new System.EventHandler(this.lblWordformingStatus_Click);
+            // 
+            // lblWordlistStatus
+            // 
+            this.lblWordlistStatus.AutoSize = true;
+            this.lblWordlistStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblWordlistStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblWordlistStatus.Location = new System.Drawing.Point(361, 103);
+            this.lblWordlistStatus.Name = "lblWordlistStatus";
+            this.lblWordlistStatus.Size = new System.Drawing.Size(90, 13);
+            this.lblWordlistStatus.TabIndex = 10;
+            this.lblWordlistStatus.Text = "Not yet loaded";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(295, 103);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(48, 13);
+            this.label18.TabIndex = 9;
+            this.label18.Text = "Wordlist:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(16, 103);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(70, 13);
+            this.label17.TabIndex = 8;
+            this.label17.Text = "Wordforming:";
+            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // lblDatabaseStatus
             // 
@@ -896,7 +1014,7 @@
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(12, 16);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(598, 32);
+            this.label15.Size = new System.Drawing.Size(598, 128);
             this.label15.TabIndex = 11;
             this.label15.Text = resources.GetString("label15.Text");
             this.label15.Click += new System.EventHandler(this.label15_Click);
@@ -915,6 +1033,16 @@
             this.tabPage5.Text = "Database Editor";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // bDeleteSelected
+            // 
+            this.bDeleteSelected.Location = new System.Drawing.Point(477, 6);
+            this.bDeleteSelected.Name = "bDeleteSelected";
+            this.bDeleteSelected.Size = new System.Drawing.Size(151, 23);
+            this.bDeleteSelected.TabIndex = 3;
+            this.bDeleteSelected.Text = "Delete selected";
+            this.bDeleteSelected.UseVisualStyleBackColor = true;
+            this.bDeleteSelected.Click += new System.EventHandler(this.bClearDatabase_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.groupBox4);
@@ -929,6 +1057,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.bBanLetter);
             this.groupBox4.Controls.Add(this.bDeleteSingleLetter);
             this.groupBox4.Location = new System.Drawing.Point(387, 19);
             this.groupBox4.Name = "groupBox4";
@@ -939,7 +1068,7 @@
             // 
             // bDeleteSingleLetter
             // 
-            this.bDeleteSingleLetter.Location = new System.Drawing.Point(11, 40);
+            this.bDeleteSingleLetter.Location = new System.Drawing.Point(13, 62);
             this.bDeleteSingleLetter.Name = "bDeleteSingleLetter";
             this.bDeleteSingleLetter.Size = new System.Drawing.Size(134, 23);
             this.bDeleteSingleLetter.TabIndex = 3;
@@ -1006,12 +1135,57 @@
             // 
             // listviewDatabase
             // 
+            this.listviewDatabase.HideSelection = false;
             this.listviewDatabase.Location = new System.Drawing.Point(3, 35);
             this.listviewDatabase.Name = "listviewDatabase";
             this.listviewDatabase.Size = new System.Drawing.Size(625, 287);
             this.listviewDatabase.TabIndex = 0;
             this.listviewDatabase.UseCompatibleStateImageBehavior = false;
             this.listviewDatabase.SelectedIndexChanged += new System.EventHandler(this.listviewDatabase_SelectedIndexChanged);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.bSwitchDatabasesNow);
+            this.tabPage6.Controls.Add(this.label21);
+            this.tabPage6.Controls.Add(this.cbDatabase);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(637, 702);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Letter Database";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // bSwitchDatabasesNow
+            // 
+            this.bSwitchDatabasesNow.Location = new System.Drawing.Point(34, 84);
+            this.bSwitchDatabasesNow.Name = "bSwitchDatabasesNow";
+            this.bSwitchDatabasesNow.Size = new System.Drawing.Size(75, 23);
+            this.bSwitchDatabasesNow.TabIndex = 2;
+            this.bSwitchDatabasesNow.Text = "Switch!";
+            this.bSwitchDatabasesNow.UseVisualStyleBackColor = true;
+            this.bSwitchDatabasesNow.Click += new System.EventHandler(this.bSwitchDatabasesNow_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(31, 39);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(84, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Letter database:";
+            // 
+            // cbDatabase
+            // 
+            this.cbDatabase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDatabase.FormattingEnabled = true;
+            this.cbDatabase.Items.AddRange(new object[] {
+            "letterdb.dat",
+            "pine.dat"});
+            this.cbDatabase.Location = new System.Drawing.Point(29, 57);
+            this.cbDatabase.Name = "cbDatabase";
+            this.cbDatabase.Size = new System.Drawing.Size(218, 21);
+            this.cbDatabase.TabIndex = 0;
             // 
             // label11
             // 
@@ -1022,15 +1196,15 @@
             this.label11.TabIndex = 24;
             this.label11.Text = "Press Alt+Left and Alt+Right to move between tabs.";
             // 
-            // bDeleteSelected
+            // bBanLetter
             // 
-            this.bDeleteSelected.Location = new System.Drawing.Point(477, 6);
-            this.bDeleteSelected.Name = "bDeleteSelected";
-            this.bDeleteSelected.Size = new System.Drawing.Size(151, 23);
-            this.bDeleteSelected.TabIndex = 3;
-            this.bDeleteSelected.Text = "Delete selected";
-            this.bDeleteSelected.UseVisualStyleBackColor = true;
-            this.bDeleteSelected.Click += new System.EventHandler(this.bClearDatabase_Click);
+            this.bBanLetter.Location = new System.Drawing.Point(13, 26);
+            this.bBanLetter.Name = "bBanLetter";
+            this.bBanLetter.Size = new System.Drawing.Size(134, 23);
+            this.bBanLetter.TabIndex = 4;
+            this.bBanLetter.Text = "Ban as stone";
+            this.bBanLetter.UseVisualStyleBackColor = true;
+            this.bBanLetter.Click += new System.EventHandler(this.bBanLetter_Click);
             // 
             // BookwormForm
             // 
@@ -1078,6 +1252,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1169,6 +1345,20 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureSingleLetter;
         private System.Windows.Forms.Button bDeleteSelected;
+        public System.Windows.Forms.Label lblAutonomousModeStatus;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label lblBestWord;
+        private System.Windows.Forms.Label label19;
+        public System.Windows.Forms.Label lblWordformingStatus;
+        public System.Windows.Forms.Label lblWordlistStatus;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button bSwitchDatabase;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Button bSwitchDatabasesNow;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cbDatabase;
+        private System.Windows.Forms.Button bBanLetter;
     }
 }
 

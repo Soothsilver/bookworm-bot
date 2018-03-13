@@ -33,12 +33,13 @@ namespace Bookworm.Scan
             SnapshotLetter letter = this[letterIndex];
             int width = letter.SimplifiedData.GetLength(0);
             int height = letter.SimplifiedData.GetLength(1);
-            int pointSize = whereTo.Width / width;
+            int pointSizeW = whereTo.Width / width;
+            int pointSizeH = whereTo.Height / height;
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y< height; y++)
                 {
-                    Rectangle rectPoint = new Rectangle(whereTo.X + x * pointSize, whereTo.Y + y * pointSize, pointSize, pointSize);
+                    Rectangle rectPoint = new Rectangle(whereTo.X + x * pointSizeW, whereTo.Y + y * pointSizeH, pointSizeW, pointSizeH);
                     e.Graphics.FillRectangle(new SolidBrush(letter.SimplifiedData[x, y]), rectPoint);
                 }
             }

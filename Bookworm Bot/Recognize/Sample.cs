@@ -12,8 +12,10 @@ namespace Bookworm.Recognize
     [Serializable]
     public class LetterSample : Sample
     {
-        public bool Scanned { get; set; } = false;
-        public Color[,] ColorData { get; set; } = null;
+        [NonSerialized]
+        public bool Scanned = false;
+        [NonSerialized]
+        public Color[,] ColorData = null;
 
         public SampleKind Kind { get; set; }
         public char Letter { get; set; }
@@ -28,6 +30,7 @@ namespace Bookworm.Recognize
     public enum SampleKind
     {
         Unassigned,
-        Known
+        Known,
+        BannedStone
     }
 }

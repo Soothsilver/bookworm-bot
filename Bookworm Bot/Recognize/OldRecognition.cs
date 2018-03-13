@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Drawing.Imaging;
 using System.Text;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Bookworm;
+using System.Threading.Tasks;
 
-namespace Bookworm
+namespace Bookworm.Recognize
 {
-    public partial class BookwormForm : Form
+    class OldRecognition
     {
         public int CONFIDENCE_THRESHOLD = 2500;
         public int CONFUSING_LETTERS_CONFIDENCE_THRESHOLD = 2500;
@@ -28,7 +20,7 @@ namespace Bookworm
             }
             SerializeLetterDB();*/
         }
-        public void RecognizeLetters(List<Letter> checkingwhat, bool totalMistrust, bool addToLetterDB = true)
+        public void RecognizeLetters(List<string> checkingwhat, bool totalMistrust, bool addToLetterDB = true)
         {
             /*
             for (int li = checkingwhat.Count() - 1; li >= 0; li--)
@@ -111,7 +103,7 @@ namespace Bookworm
         private void RecognizeAllUnrecognizedInDB(bool mistrust = true)
         {
         }
-     
+
         private int GetSimilarityIndex(AnalyzedImage l, AnalyzedImage l2)
         {
             int similarity = 0;
@@ -146,7 +138,5 @@ namespace Bookworm
                 }
             return luminosity;
         }
-      
-    
     }
 }

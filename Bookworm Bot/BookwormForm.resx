@@ -138,7 +138,12 @@
   <data name="label15.Text" xml:space="preserve">
     <value>[Alt+R] Remember all unknown letters in the grid as 'unassigned'. You will assign letters to them later.
 [Alt+Shift+R] Remember ALL letters in the grid as 'unassigned'. You will assign letters to them later.
-</value>
+
+[Alt+L] Enter or exit "targeted recognition (lock) mode"
+While in lock mode:
+ [NumPad] move targeting reticle
+ [NumPad 5] Remember the target letter
+ [NumPad 0] Remember and store the target letter with its best guess</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>

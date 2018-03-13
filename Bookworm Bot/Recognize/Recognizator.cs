@@ -23,6 +23,10 @@ namespace Bookworm.Recognize
 
         internal void StartRecognizing(Snapshot snapshot)
         {
+            if (snapshot.Keyboard.IsDark)
+            {
+                return;
+            }
             if (Interlocked.CompareExchange(ref RecognizingInProgress, 1, 0) == 1)
             {
                 return;
@@ -34,8 +38,13 @@ namespace Bookworm.Recognize
                 {
                     var rl = Recognize(snapshot.Keyboard[i], bot.Database);
                     recognitionResults.Keyboard.Add(rl);
+                    if (rl.Kind == RecognitionLetterKind.Letter)
+                    {
+                        recognitionResults.UsableLetters.Add(rl.Letter.ToUpper()[0]);
+                    }
                 }
                 LastRecognitionResults = recognitionResults;
+                bot.Vocabulary.StartWordforming(recognitionResults);
                 RecognizingInProgress = 0;
             });            
         }
@@ -44,16 +53,16 @@ namespace Bookworm.Recognize
         {
             if (snapshotLetter.IsDark)
             {
-                return new RecognizedLetter(RecognitionLetterKind.Dark, "Dark", snapshotLetter);
+                return new RecognizedLetter(RecognitionLetterKind.Dark, "Dark", "", snapshotLetter);
             }
             List<LetterSample> letters = new List<LetterSample>();
-            lock (databaseManager)
+            lock (databaseManager.DatabaseLock)
             {
                 foreach (var sample in databaseManager.Database.OfType<LetterSample>())
                 {
                     if (!sample.Scanned)
                     {
-                        sample.ColorData = bot.Scan.SimplifyLetter(sample.Bitmap, new Rectangle(0, 0, sample.Bitmap.Width, sample.Bitmap.Height));
+                        sample.ColorData = bot.PresageAndRecognize.SimplifyLetter(sample.Bitmap, new Rectangle(0, 0, sample.Bitmap.Width, sample.Bitmap.Height));
                         sample.Scanned = true;
                     }                  
                     letters.Add(sample);                    
@@ -61,43 +70,27 @@ namespace Bookworm.Recognize
 
                 if (letters.Count > 0)
                 {
-                    LetterSample closestMatch = letters.MinBy(sample => GetDistance(snapshotLetter.SimplifiedData, sample.ColorData));
-                    int distance = GetDistance(snapshotLetter.SimplifiedData, closestMatch.ColorData);
-                    if (distance <= THRESHOLD_OF_DISTANCE_FOR_MATCH)
+                    LetterSample closestMatch = letters.MinBy(sample => bot.PresageAndRecognize.GetDistance(snapshotLetter.SimplifiedData, sample.ColorData));
+                    int distance = bot.PresageAndRecognize.GetDistance(snapshotLetter.SimplifiedData, closestMatch.ColorData);
+                    if (distance <= PresageAndRecognize.THRESHOLD_OF_DISTANCE_FOR_MATCH)
                     {
                         if (closestMatch.Kind == SampleKind.Known)
                         {
-                            return new RecognizedLetter(RecognitionLetterKind.Letter, closestMatch.Letter.ToString(), snapshotLetter);
+                            return new RecognizedLetter(RecognitionLetterKind.Letter, closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
+                        }
+                        else if (closestMatch.Kind == SampleKind.BannedStone)
+                        {
+                            return new RecognizedLetter(RecognitionLetterKind.BannedLetter, "Banned", distance.ToString(), snapshotLetter);
                         }
                         else
                         {
-                            return new RecognizedLetter(RecognitionLetterKind.RecognizedButAssigned, "RbA" + closestMatch.Letter.ToString(), snapshotLetter);
+                            return new RecognizedLetter(RecognitionLetterKind.RecognizedButUnassigned, "RbU" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
                         }
                     }
-                    return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?" + closestMatch.Letter.ToString() + "-" + distance, snapshotLetter);
+                    return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
                 }
-                return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "??", snapshotLetter);
+                return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "??", "no db", snapshotLetter);
             }
         }
-
-        private int GetDistance(Color[,] simplifiedData, Color[,] colorData)
-        {
-            int w = simplifiedData.GetLength(0);
-            int h = simplifiedData.GetLength(1);
-            int distance = 0;
-            for (int x =0; x< w; x++)
-            {
-                for (int y =0; y< h;y++)
-                {
-                    if (simplifiedData[x,y].R != colorData[x,y].R)
-                    {
-                        distance++;
-                    }
-                }
-            }
-            return distance;
-        }
-
-        public const int THRESHOLD_OF_DISTANCE_FOR_MATCH = 10;
     }
 }
