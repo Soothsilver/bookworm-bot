@@ -87,7 +87,21 @@ namespace Bookworm.Recognize
                             return new RecognizedLetter(RecognitionLetterKind.RecognizedButUnassigned, "RbU" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
                         }
                     }
-                    return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
+                    else
+                    {
+                        if (closestMatch.Kind == SampleKind.Known)
+                        {
+                            return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
+                        }
+                        else if (closestMatch.Kind == SampleKind.BannedStone)
+                        {
+                            return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?Banned", distance.ToString(), snapshotLetter);
+                        }
+                        else
+                        {
+                            return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "?RbU" + closestMatch.Letter.ToString(), distance.ToString(), snapshotLetter);
+                        }
+                    }
                 }
                 return new RecognizedLetter(RecognitionLetterKind.UnknownLetter, "??", "no db", snapshotLetter);
             }

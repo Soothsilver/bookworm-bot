@@ -48,6 +48,12 @@ namespace Bookworm.Scan
                 g.Dispose();
                 SnapshotKeyboard keyboard = ParseKeyboardBitmap(fullBitmap);
                 Snapshot snapshot = new Snapshot(fullBitmap, keyboardBitmap, keyboard);
+                Bitmap fourButtonsNext = ExtractBitmap(fullBitmap, Positions.LetterQuest.FourButtonsNextButton);
+                Bitmap threeButtonsNext = ExtractBitmap(fullBitmap, Positions.LetterQuest.ThreeButtonsNextButton);
+                Bitmap row = ExtractBitmap(fullBitmap, Positions.LetterQuest.TreasureChestRow);
+                snapshot.SetScreenpart(Screenpart.FOUR_BUTTON_NEXT, fourButtonsNext, Bot.PresageAndRecognize.SimplifyOtherBitmap(fullBitmap, Positions.LetterQuest.FourButtonsNextButton));
+                snapshot.SetScreenpart(Screenpart.THREE_BUTTON_NEXT, threeButtonsNext, Bot.PresageAndRecognize.SimplifyOtherBitmap(fullBitmap, Positions.LetterQuest.ThreeButtonsNextButton));
+                snapshot.SetScreenpart(Screenpart.TREASURE_CHEST_TOP_ROW, row, Bot.PresageAndRecognize.SimplifyOtherBitmap(fullBitmap, Positions.LetterQuest.TreasureChestRow));
                 Bot.Recognizator.StartRecognizing(snapshot);
                 LastSnapshot = snapshot;
                 SnapshotInProgress = false;
@@ -76,6 +82,15 @@ namespace Bookworm.Scan
                 GridLuminosity = GetLuminosityIndex(ai);
                this.lblGridLuminosity.Text = GridLuminosity.ToString();*/
 
+        }
+
+        private Bitmap ExtractBitmap(Bitmap fullBitmap, Rectangle partRectangle)
+        {
+            Bitmap partialBitmap = new Bitmap(partRectangle.Width, partRectangle.Height);
+            Graphics g = Graphics.FromImage(partialBitmap);
+            g.DrawImage(fullBitmap, 0, 0, partRectangle, GraphicsUnit.Pixel);
+            g.Dispose();
+            return partialBitmap;
         }
 
         private SnapshotKeyboard ParseKeyboardBitmap(Bitmap fullScreenBitmap)

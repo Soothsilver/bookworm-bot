@@ -47,22 +47,34 @@ namespace Bookworm.Scrabble
             }
             Task.Run(() =>
             {
-                Word bestWord = FindMostPowerfulMatchingWord(this.Vocabulary, recognitionResults.UsableLetters);
-                LastScrabbleResult = new ScrabbleResult(bestWord);
+                List<Word> bestWords = FindMostPowerfulMatchingWord(this.Vocabulary, recognitionResults.UsableLetters, 8);
+                if (bestWords.Count > 0)
+                {
+                    LastScrabbleResult = new ScrabbleResult(bestWords[0], bestWords);
+                }
+                else
+                {
+                    LastScrabbleResult = new ScrabbleResult(null, new List<Word>());
+                }
                 wordformingInProgress = 0;
             });
         }
 
-        private Word FindMostPowerfulMatchingWord(Vocabulary vocabulary, List<char> usableLetters)
+        private List<Word> FindMostPowerfulMatchingWord(Vocabulary vocabulary, List<char> usableLetters, int numWords)
         {
+            List<Word> results = new List<Word>();
             foreach(Word word in vocabulary)
             {
                 if (word.CreatableFrom(usableLetters))
                 {
-                    return word;
+                    results.Add(word);
+                    if (results.Count == numWords)
+                    {
+                        return results;
+                    }
                 }
             }
-            return null;
+            return results;
         }
     }
 }

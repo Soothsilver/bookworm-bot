@@ -18,6 +18,11 @@ namespace Bookworm.Recognize
             Color[,] imgData = GetColorDataFromBitmap(bitmap, importantLetterPart, 5, 5);
             return imgData;
         }
+        public Color[,] SimplifyOtherBitmap(Bitmap bitmap, Rectangle whereIsLetterInBitmap)
+        {
+             Color[,] imgData = GetColorDataFromBitmap(bitmap, whereIsLetterInBitmap, 5, 5);
+            return imgData;
+        }
 
         /// <summary>
         /// Gets the color data for a part of a bitmap. Data from adjacent pixels is collapsed into a single element. The WIDTH COLLAPSE parameter determines how many horizontal

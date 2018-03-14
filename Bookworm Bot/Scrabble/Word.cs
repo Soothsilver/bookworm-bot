@@ -22,13 +22,19 @@ namespace Bookworm.Scrabble
             {
                 power += GetPowerOfChar(c);
             }
+            if (text[text.Length - 1] == 'S')
+            {
+                power += 4;
+            }
             return power;
         }
 
-        static char[] GoldChars = new char[] { 'X', 'Q' };
+        static char[] GoldChars = new char[] { 'Z', 'Q', 'K', 'X', 'J'};
+        static char[] SilverChars = new char[] { 'Y', 'F', 'P', 'V', 'M', 'W', 'B', 'H', 'C' };
         private int GetPowerOfChar(char c)
         {
             if (GoldChars.Contains(c)) return 3;
+            if (SilverChars.Contains(c)) return 2;
             return 1;
         }
 

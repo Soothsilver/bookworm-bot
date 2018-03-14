@@ -17,7 +17,10 @@ namespace Bookworm.Act
         public Rectangle Keyboard = new Rectangle(660, 675, 600, 390);
         public List<Rectangle> Letters = new List<Rectangle>();
         public int Tilesize { get; } = 120;
-        public Rectangle ImportantLetterSection = new Rectangle(10, 11, 100, 100);
+        public Rectangle ImportantLetterSection { get; } = new Rectangle(10, 11, 100, 100);
+        public Rectangle FourButtonsNextButton { get; } = new Rectangle(1145, 757, 160, 90);
+        public Rectangle ThreeButtonsNextButton { get; } = new Rectangle(1054, 758, 160, 90);
+        public Rectangle TreasureChestRow { get; } = new Rectangle(358, 657, 1202, 119);
         public LetterQuestPositions1920x1080()
         {
             for (int row = 0; row < 3; row++)

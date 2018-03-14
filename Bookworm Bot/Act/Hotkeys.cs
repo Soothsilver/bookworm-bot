@@ -1,4 +1,5 @@
 ﻿using Bookworm.Recognize;
+using Bookworm.Scan;
 using ManagedWinapi;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ namespace Bookworm.Act
         {
             AddHotkey(Keys.Left, switchTabLeft, alt: true);
             AddHotkey(Keys.Right, switchTabRight, alt: true);
+            AddHotkey(Keys.Up, screenPartUp, alt: true);
+            AddHotkey(Keys.Down, screenPartDown, alt: true);
+            AddHotkey(Keys.P, screenPartRemember, alt: true);
             AddHotkey(Keys.R, saveUnknownsIntoDatabase, alt: true);
             AddHotkey(Keys.R, saveAllIntoDatabase, alt: true, shift: true);
             AddHotkey(Keys.L, toggleLockMode, alt: true);
@@ -35,6 +39,41 @@ namespace Bookworm.Act
             AddHotkey(Keys.NumPad2, () => moveReticle(0, 1));
             AddHotkey(Keys.NumPad5, rememberLockTarget);
             AddHotkey(Keys.NumPad0, rememberAndSortLockTarget);
+        }
+
+        private void screenPartRemember()
+        {
+            if (Form.lbScreenparts.SelectedIndex > 0 && Bot.Scan.LastSnapshot != null)
+            {
+                Screenpart part = (Screenpart)Form.lbScreenparts.SelectedItem;
+                Form.Bot.Database.AddScreenpart(part, Bot.Scan.LastSnapshot);
+
+            }
+            Form.tabControl.SelectedTab = Form.tabPageScanNonLetters;
+        }
+
+        private void screenPartDown()
+        {
+            Form.tabControl.SelectedTab = Form.tabPageScanNonLetters;
+            if (Form.lbScreenparts.SelectedIndex < 0)
+            {
+                Form.lbScreenparts.SelectedIndex = 0;
+            }
+            else if (Form.lbScreenparts.SelectedIndex < Form.lbScreenparts.Items.Count - 1)
+            {
+                Form.lbScreenparts.SelectedIndex++;
+            }
+            Form.lbScreenparts.Focus();
+        }
+
+        private void screenPartUp()
+        {
+            Form.tabControl.SelectedTab = Form.tabPageScanNonLetters;
+            if (Form.lbScreenparts.SelectedIndex >= 1)
+            {
+                Form.lbScreenparts.SelectedIndex = 0;                
+            }
+            Form.lbScreenparts.Focus();
         }
 
         private void rememberLockTarget()
@@ -133,6 +172,7 @@ namespace Bookworm.Act
                 Bot.Autonomous.WakeUp();
                 Bot.Autonomous.IsAutonomous = true;
             }
+            Form.tabControl.SelectedTab = Form.tabStatus;
         }
         
         public void AddHotkey(

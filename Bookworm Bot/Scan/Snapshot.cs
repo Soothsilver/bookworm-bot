@@ -14,6 +14,9 @@ namespace Bookworm.Scan
         public Bitmap FullBitmap { get; }
         public Bitmap KeyboardBitmap { get; }
         public DateTime Timestamp { get; }
+        public Bitmap TopRow { get; }
+        public Dictionary<Screenpart, Bitmap> Screenparts { get; } = new Dictionary<Screenpart, Bitmap>();
+        public Dictionary<Screenpart, Color[,]> ColorDataScreenparts { get; } = new Dictionary<Screenpart, Color[,]>();
 
         public Snapshot(Bitmap fullBitmap, Bitmap keyboardBitmap, SnapshotKeyboard keyboard)
         {
@@ -23,6 +26,17 @@ namespace Bookworm.Scan
             this.Timestamp = DateTime.Now;
             int darks = this.Keyboard.Count(letter => letter.IsDark);
             this.Keyboard.IsDark = darks >= this.Keyboard.Count * 0.6;
+        }
+
+        public Bitmap GetBitmapForScreenpart(Screenpart part)
+        {
+            return Screenparts[part];
+        }
+
+        internal void SetScreenpart(Screenpart screenpart, Bitmap bitmap, Color[,] colordata)
+        {
+            Screenparts.Add(screenpart, bitmap);
+            ColorDataScreenparts.Add(screenpart, colordata);
         }
     }
     public class SnapshotKeyboard : List<SnapshotLetter>

@@ -14,6 +14,7 @@ using Bookworm.Scan;
 using Bookworm.Act;
 using Bookworm.Output;
 using Bookworm.Recognize;
+using System.Threading.Tasks;
 
 namespace Bookworm
 {
@@ -43,8 +44,24 @@ namespace Bookworm
             Bot.Database.SwitchDatabase(this.cbDatabase.SelectedItem.ToString());
             Bot.Vocabulary.LoadGrimmDictionaryAsync();
             GarbageCollector.StartCollectingInBackground();
+            foreach(Screenpart screenpart in (Screenpart[])Enum.GetValues(typeof(Screenpart)))
+            {
+                this.lbScreenparts.Items.Add(screenpart);
+            }
+            Task.Run((Action)CaptureAndBot);
             // LoadTilePositions();
-        }        
+        }
+
+        private void CaptureAndBot()
+        {
+            while (true)
+            {
+                // Capture
+                Bot.Scan.PerformCapture();
+                // Autonomous
+                this.Bot.Autonomous.Tick();
+            }
+        }
 
         private void LogException(Exception exception)
         {
@@ -55,8 +72,6 @@ namespace Bookworm
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Capture
-            Bot.Scan.PerformCapture();
             
             // Redraw pictures
             this.picturebox.Invalidate();
@@ -65,13 +80,6 @@ namespace Bookworm
             // Update status
             this.StatusOutput.UpdateAllStatus();
             
-            // Autonomous
-            this.Bot.Autonomous.Tick();
-                       
-            // Composure display
-            //  this.panelRegainingComposure.Visible = RegainingComposure;
-                     
-            this.lblPaused.Visible = false;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -348,34 +356,49 @@ namespace Bookworm
 
         private void RefreshDatabaseListView()
         {
-            var imagelist = new ImageList();
-            this.listviewDatabase.Clear();
-            int i = 1;
-            foreach(LetterSample sample in Bot.Database.Database.OfType<LetterSample>())
+            lock (Bot.Database.DatabaseLock)
             {
-                imagelist.Images.Add(sample.Bitmap);
-                ListViewItem item = new ListViewItem("Letter " + i, i - 1);
-                if (sample.Kind == SampleKind.Known)
+                var imagelist = new ImageList();
+                this.listviewDatabase.Clear();
+                int i = 1;
+                foreach (Sample sample in Bot.Database.Database)
                 {
-                    item.Text = sample.Letter.ToString();
+                    imagelist.Images.Add(sample.Bitmap);
+                    ListViewItem item = new ListViewItem("Letter " + i, i - 1);
+                    if (sample is LetterSample)
+                    {
+                        LetterSample letterSample = sample as LetterSample;
+                        if (letterSample.Kind == SampleKind.Known)
+                        {
+                            item.Text = letterSample.Letter.ToString();
+                        }
+                        if (letterSample.Kind == SampleKind.BannedStone)
+                        {
+                            item.Text = "Banned";
+                        }
+                    }
+                    if (sample is ScreenpartSample)
+                    {
+                        ScreenpartSample screenpartSample = sample as ScreenpartSample;
+                        item.Text = screenpartSample.Screenpart.ToString();
+                    }
+                    item.Tag = sample;
+                    this.listviewDatabase.Items.Add(item);
+                    i++;
                 }
-                if (sample.Kind == SampleKind.BannedStone)
-                {
-                    item.Text = "Banned";
-                }
-                item.Tag = sample;
-                this.listviewDatabase.Items.Add(item);
-                i++;
+                this.listviewDatabase.LargeImageList = imagelist;
             }
-            this.listviewDatabase.LargeImageList = imagelist;
         }
 
         private void tabControl_TabIndexChanged(object sender, EventArgs e)
         {
-            RefreshDatabaseListView();
+            lock (Bot.Database.DatabaseLock)
+            {
+                RefreshDatabaseListView();
+            }
         }
 
-        public LetterSample EditingLetter;
+        public Sample EditingLetter;
 
         private void listviewDatabase_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -384,7 +407,7 @@ namespace Bookworm
                 return;
             }
             ListViewItem selectedItem = this.listviewDatabase.SelectedItems[0];
-            LetterSample letterSample = (LetterSample)selectedItem.Tag;
+            Sample letterSample = (Sample)selectedItem.Tag;
             this.pictureSingleLetter.Image = letterSample.Bitmap;
             this.EditingLetter = letterSample;
         }
@@ -426,12 +449,12 @@ namespace Bookworm
 
         private void bSaveSingleLetter_Click(object sender, EventArgs e)
         {
-            if (this.EditingLetter != null)
+            if (this.EditingLetter != null && this.EditingLetter is LetterSample)
             {
                 if (this.tbSingleLetter.Text.Length == 1)
                 {
-                    this.EditingLetter.Kind = SampleKind.Known;
-                    this.EditingLetter.Letter = this.tbSingleLetter.Text.ToUpper()[0];
+                    (this.EditingLetter as LetterSample).Kind = SampleKind.Known;
+                    (this.EditingLetter as LetterSample).Letter = this.tbSingleLetter.Text.ToUpper()[0];
                     Bot.Database.SaveDatabase();
                 }
                 LetterEditComplete();
@@ -485,14 +508,19 @@ namespace Bookworm
 
         private void bBanLetter_Click(object sender, EventArgs e)
         {
-            if (this.EditingLetter != null)
+            if (this.EditingLetter != null && this.EditingLetter is LetterSample)
             {
                
-                this.EditingLetter.Kind = SampleKind.BannedStone;
+                (this.EditingLetter as LetterSample).Kind = SampleKind.BannedStone;
                 Bot.Database.SaveDatabase();
                 
                 LetterEditComplete();
             }
+        }
+
+        private void BookwormForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
   }

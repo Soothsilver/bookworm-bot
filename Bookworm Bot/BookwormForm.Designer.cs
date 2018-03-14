@@ -76,7 +76,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblGridLuminosity = new System.Windows.Forms.Label();
             this.panelAutomode = new System.Windows.Forms.Panel();
-            this.lblPaused = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelGridIsDark = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -87,8 +86,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.bSwitchDatabase = new System.Windows.Forms.Button();
+            this.tabStatus = new System.Windows.Forms.TabPage();
             this.lblAutonomousModeStatus = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblBestWord = new System.Windows.Forms.Label();
@@ -114,6 +112,7 @@
             this.bDeleteSelected = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bBanLetter = new System.Windows.Forms.Button();
             this.bDeleteSingleLetter = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tbSingleLetter = new System.Windows.Forms.TextBox();
@@ -126,8 +125,12 @@
             this.bSwitchDatabasesNow = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.cbDatabase = new System.Windows.Forms.ComboBox();
+            this.tabPageScanNonLetters = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.lbScreenparts = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.bBanLetter = new System.Windows.Forms.Button();
+            this.lblSpecialSituation = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picturebox)).BeginInit();
             this.panelTraining.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -138,7 +141,7 @@
             this.panelException.SuspendLayout();
             this.panelRegainingComposure.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabStatus.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -148,6 +151,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).BeginInit();
             this.tabPage6.SuspendLayout();
+            this.tabPageScanNonLetters.SuspendLayout();
             this.SuspendLayout();
             // 
             // picturebox
@@ -631,23 +635,12 @@
             // 
             this.panelAutomode.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panelAutomode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelAutomode.Controls.Add(this.lblPaused);
             this.panelAutomode.Controls.Add(this.label5);
             this.panelAutomode.Location = new System.Drawing.Point(607, 766);
             this.panelAutomode.Name = "panelAutomode";
             this.panelAutomode.Size = new System.Drawing.Size(581, 88);
             this.panelAutomode.TabIndex = 13;
             this.panelAutomode.Visible = false;
-            // 
-            // lblPaused
-            // 
-            this.lblPaused.AutoSize = true;
-            this.lblPaused.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaused.Location = new System.Drawing.Point(365, 20);
-            this.lblPaused.Name = "lblPaused";
-            this.lblPaused.Size = new System.Drawing.Size(175, 38);
-            this.lblPaused.TabIndex = 1;
-            this.lblPaused.Text = "but Paused";
             // 
             // label5
             // 
@@ -745,12 +738,13 @@
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabStatus);
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Controls.Add(this.tabPage4);
             this.tabControl.Controls.Add(this.tabPage5);
             this.tabControl.Controls.Add(this.tabPage6);
+            this.tabControl.Controls.Add(this.tabPageScanNonLetters);
             this.tabControl.Location = new System.Drawing.Point(743, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -758,49 +752,39 @@
             this.tabControl.TabIndex = 23;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_TabIndexChanged);
             // 
-            // tabPage2
+            // tabStatus
             // 
-            this.tabPage2.Controls.Add(this.bSwitchDatabase);
-            this.tabPage2.Controls.Add(this.lblAutonomousModeStatus);
-            this.tabPage2.Controls.Add(this.label20);
-            this.tabPage2.Controls.Add(this.lblBestWord);
-            this.tabPage2.Controls.Add(this.label19);
-            this.tabPage2.Controls.Add(this.lblWordformingStatus);
-            this.tabPage2.Controls.Add(this.lblWordlistStatus);
-            this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.lblDatabaseStatus);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.lblRecognizingStatus);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.lblScanningStatus);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.lblGameName);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(637, 702);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced status";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // bSwitchDatabase
-            // 
-            this.bSwitchDatabase.Location = new System.Drawing.Point(475, 67);
-            this.bSwitchDatabase.Name = "bSwitchDatabase";
-            this.bSwitchDatabase.Size = new System.Drawing.Size(88, 22);
-            this.bSwitchDatabase.TabIndex = 17;
-            this.bSwitchDatabase.Text = "Switch...";
-            this.bSwitchDatabase.UseVisualStyleBackColor = true;
-            this.bSwitchDatabase.Click += new System.EventHandler(this.bSwitchDatabase_Click);
+            this.tabStatus.Controls.Add(this.lblSpecialSituation);
+            this.tabStatus.Controls.Add(this.lblAutonomousModeStatus);
+            this.tabStatus.Controls.Add(this.label20);
+            this.tabStatus.Controls.Add(this.lblBestWord);
+            this.tabStatus.Controls.Add(this.label19);
+            this.tabStatus.Controls.Add(this.lblWordformingStatus);
+            this.tabStatus.Controls.Add(this.lblWordlistStatus);
+            this.tabStatus.Controls.Add(this.label18);
+            this.tabStatus.Controls.Add(this.label17);
+            this.tabStatus.Controls.Add(this.lblDatabaseStatus);
+            this.tabStatus.Controls.Add(this.label14);
+            this.tabStatus.Controls.Add(this.lblRecognizingStatus);
+            this.tabStatus.Controls.Add(this.label13);
+            this.tabStatus.Controls.Add(this.lblScanningStatus);
+            this.tabStatus.Controls.Add(this.label12);
+            this.tabStatus.Controls.Add(this.lblGameName);
+            this.tabStatus.Controls.Add(this.label10);
+            this.tabStatus.Location = new System.Drawing.Point(4, 22);
+            this.tabStatus.Name = "tabStatus";
+            this.tabStatus.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStatus.Size = new System.Drawing.Size(637, 702);
+            this.tabStatus.TabIndex = 1;
+            this.tabStatus.Text = "Advanced status";
+            this.tabStatus.UseVisualStyleBackColor = true;
             // 
             // lblAutonomousModeStatus
             // 
             this.lblAutonomousModeStatus.AutoSize = true;
             this.lblAutonomousModeStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblAutonomousModeStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblAutonomousModeStatus.Location = new System.Drawing.Point(152, 213);
+            this.lblAutonomousModeStatus.Location = new System.Drawing.Point(148, 336);
             this.lblAutonomousModeStatus.Name = "lblAutonomousModeStatus";
             this.lblAutonomousModeStatus.Size = new System.Drawing.Size(99, 13);
             this.lblAutonomousModeStatus.TabIndex = 16;
@@ -809,7 +793,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(17, 213);
+            this.label20.Location = new System.Drawing.Point(13, 336);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(129, 13);
             this.label20.TabIndex = 15;
@@ -1066,6 +1050,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Other actions";
             // 
+            // bBanLetter
+            // 
+            this.bBanLetter.Location = new System.Drawing.Point(13, 26);
+            this.bBanLetter.Name = "bBanLetter";
+            this.bBanLetter.Size = new System.Drawing.Size(134, 23);
+            this.bBanLetter.TabIndex = 4;
+            this.bBanLetter.Text = "Ban as stone";
+            this.bBanLetter.UseVisualStyleBackColor = true;
+            this.bBanLetter.Click += new System.EventHandler(this.bBanLetter_Click);
+            // 
             // bDeleteSingleLetter
             // 
             this.bDeleteSingleLetter.Location = new System.Drawing.Point(13, 62);
@@ -1171,9 +1165,8 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(31, 39);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(84, 13);
+            this.label21.Size = new System.Drawing.Size(0, 13);
             this.label21.TabIndex = 1;
-            this.label21.Text = "Letter database:";
             // 
             // cbDatabase
             // 
@@ -1187,6 +1180,46 @@
             this.cbDatabase.Size = new System.Drawing.Size(218, 21);
             this.cbDatabase.TabIndex = 0;
             // 
+            // tabPageScanNonLetters
+            // 
+            this.tabPageScanNonLetters.Controls.Add(this.label23);
+            this.tabPageScanNonLetters.Controls.Add(this.label22);
+            this.tabPageScanNonLetters.Controls.Add(this.lbScreenparts);
+            this.tabPageScanNonLetters.Location = new System.Drawing.Point(4, 22);
+            this.tabPageScanNonLetters.Name = "tabPageScanNonLetters";
+            this.tabPageScanNonLetters.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageScanNonLetters.Size = new System.Drawing.Size(637, 702);
+            this.tabPageScanNonLetters.TabIndex = 6;
+            this.tabPageScanNonLetters.Text = "Scan non-letters";
+            this.tabPageScanNonLetters.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(309, 41);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(261, 26);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "[Alt+Down] and [Alt+Up] to select in the listbox.\r\n[Alt+P] Remember and recognize" +
+    " as given screenpart.";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(13, 8);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(61, 13);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Scan what:";
+            // 
+            // lbScreenparts
+            // 
+            this.lbScreenparts.FormattingEnabled = true;
+            this.lbScreenparts.Location = new System.Drawing.Point(9, 30);
+            this.lbScreenparts.Name = "lbScreenparts";
+            this.lbScreenparts.Size = new System.Drawing.Size(283, 329);
+            this.lbScreenparts.TabIndex = 0;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -1196,15 +1229,16 @@
             this.label11.TabIndex = 24;
             this.label11.Text = "Press Alt+Left and Alt+Right to move between tabs.";
             // 
-            // bBanLetter
+            // lblSpecialSituation
             // 
-            this.bBanLetter.Location = new System.Drawing.Point(13, 26);
-            this.bBanLetter.Name = "bBanLetter";
-            this.bBanLetter.Size = new System.Drawing.Size(134, 23);
-            this.bBanLetter.TabIndex = 4;
-            this.bBanLetter.Text = "Ban as stone";
-            this.bBanLetter.UseVisualStyleBackColor = true;
-            this.bBanLetter.Click += new System.EventHandler(this.bBanLetter_Click);
+            this.lblSpecialSituation.AutoSize = true;
+            this.lblSpecialSituation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblSpecialSituation.ForeColor = System.Drawing.Color.Red;
+            this.lblSpecialSituation.Location = new System.Drawing.Point(148, 402);
+            this.lblSpecialSituation.Name = "lblSpecialSituation";
+            this.lblSpecialSituation.Size = new System.Drawing.Size(158, 13);
+            this.lblSpecialSituation.TabIndex = 17;
+            this.lblSpecialSituation.Text = "No special situation tested";
             // 
             // BookwormForm
             // 
@@ -1222,6 +1256,7 @@
             this.Name = "BookwormForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Bookworm Bot";
+            this.Load += new System.EventHandler(this.BookwormForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picturebox)).EndInit();
             this.panelTraining.ResumeLayout(false);
             this.panelTraining.PerformLayout();
@@ -1238,8 +1273,8 @@
             this.panelRegainingComposure.ResumeLayout(false);
             this.panelRegainingComposure.PerformLayout();
             this.tabControl.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabStatus.ResumeLayout(false);
+            this.tabStatus.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1254,6 +1289,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureSingleLetter)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.tabPageScanNonLetters.ResumeLayout(false);
+            this.tabPageScanNonLetters.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1292,10 +1329,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblGridLuminosity;
-        private System.Windows.Forms.Panel panelAutomode;
-        private System.Windows.Forms.Label lblPaused;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panelGridIsDark;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox chSmashed;
         private System.Windows.Forms.CheckBox chEmpty;
@@ -1317,7 +1351,6 @@
         private System.Windows.Forms.Button bRemoveFriend;
         private System.Windows.Forms.CheckBox chPlagued;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
@@ -1353,12 +1386,19 @@
         public System.Windows.Forms.Label lblWordlistStatus;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button bSwitchDatabase;
+        private System.Windows.Forms.Button bBanLetter;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Button bSwitchDatabasesNow;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbDatabase;
-        private System.Windows.Forms.Button bBanLetter;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.TabPage tabStatus;
+        public System.Windows.Forms.TabPage tabPageScanNonLetters;
+        public System.Windows.Forms.ListBox lbScreenparts;
+        public System.Windows.Forms.Panel panelAutomode;
+        public System.Windows.Forms.Panel panelGridIsDark;
+        public System.Windows.Forms.Label lblSpecialSituation;
     }
 }
 

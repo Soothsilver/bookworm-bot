@@ -58,9 +58,6 @@
     <StartupObject>Bookworm.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gma.UserActivityMonitor">
-      <HintPath>D:\Downloaded\HOOK\Gma.UserActivityMonitor\bin\Debug\Gma.UserActivityMonitor.dll</HintPath>
-    </Reference>
     <Reference Include="ManagedWinapi">
       <HintPath>..\..\..\..\..\Downloads\managedwinapi-src-0.3\ManagedWinapi\bin\Debug\ManagedWinapi.dll</HintPath>
     </Reference>
@@ -87,7 +84,7 @@
     <Compile Include="Act\AutoPhase.cs" />
     <Compile Include="Act\ByteKey.cs" />
     <Compile Include="Act\Injection.cs" />
-    <Compile Include="Act\Positions.cs" />
+    <Compile Include="Positions.cs" />
     <Compile Include="Act\Hotkeys.cs" />
     <Compile Include="AnalyzedImage.cs" />
     <Compile Include="BookwormForm.cs">

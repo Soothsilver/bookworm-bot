@@ -47,7 +47,7 @@ namespace Bookworm.Recognize
             }
         }
 
-        internal void Remove(LetterSample editingLetter)
+        internal void Remove(Sample editingLetter)
         {
             lock (DatabaseLock)
             {
@@ -63,9 +63,18 @@ namespace Bookworm.Recognize
             {
                 Database = Databases.Load(dbname);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Database = new Database(true);
+            }
+        }
+
+        internal void AddScreenpart(Screenpart part, Snapshot snapshot)
+        {
+            lock (DatabaseLock)
+            {
+                Database.Add(new ScreenpartSample(snapshot.GetBitmapForScreenpart(part), part));
+                SaveDatabase();
             }
         }
 

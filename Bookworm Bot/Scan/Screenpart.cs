@@ -5,23 +5,13 @@ using System.Text;
 
 namespace Bookworm.Scan
 {
+    [Serializable]
     public enum Screenpart
     {
-        Null,
-        HealthPotionAvailable,
-        HealthPotionNone,
-        PowerupPotionAvailable,
-        PowerupPotionNone,
-        PurifyPotionAvailable,
-        PurifyPotionNone,
-        ScrambleAvailable,
-        ScrambleNone,
-        AttackAvailable,
-        AttackNone,
-        HeartFull,
-        HeartThreeQuarters,
-        HeartHalf,
-        HeartOneQuarter,
-        HeartNone
+        ATTACK_POSSIBLE,
+        ATTACK_DISABLED,
+        TREASURE_CHEST_TOP_ROW,
+        THREE_BUTTON_NEXT,
+        FOUR_BUTTON_NEXT
     }
 }

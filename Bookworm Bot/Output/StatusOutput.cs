@@ -45,9 +45,11 @@ namespace Bookworm.Output
                 if (snapshot.Keyboard.IsDark)
                 {
                     UpdateStatusLabel(form.lblRecognizingStatus, Color.Red, "Keyboard is dark!");
+                    this.form.panelGridIsDark.Visible = true;
                 }
                 else
                 {
+                    this.form.panelGridIsDark.Visible = false;
                     var recognition = form.Bot.Recognizator.LastRecognitionResults;
                     if (recognition != null)
                     {
@@ -77,7 +79,12 @@ namespace Bookworm.Output
                     Word bestWord = form.Bot.Vocabulary.LastScrabbleResult.BestWord;
                     if (bestWord != null)
                     {
-                        UpdateStatusLabel(form.lblBestWord, Color.Green, bestWord.Text);
+                        string s = "";
+                        foreach(Word word in form.Bot.Vocabulary.LastScrabbleResult.GoodWords)
+                        {
+                            s += word.Text + Environment.NewLine;
+                        }
+                        UpdateStatusLabel(form.lblBestWord, Color.Green, s);
                     }
                     else
                     {
@@ -107,11 +114,14 @@ namespace Bookworm.Output
             if (form.Bot.Autonomous.IsAutonomous)
             {
                 UpdateStatusLabel(form.lblAutonomousModeStatus, Color.Black, form.Bot.Autonomous.Status);
+                this.form.panelAutomode.Visible = true;
             }
             else
             {
+                this.form.panelAutomode.Visible = false;
                 UpdateStatusLabel(form.lblAutonomousModeStatus, Color.Red, "Disabled");
             }
+            UpdateStatusLabel(form.lblSpecialSituation, Color.Black, this.form.Bot.Autonomous.SpecialSituationDescription);
 
         }
 
